@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 
-const auth = getAuth();
+import { auth } from '../config/firebase.js';
 
 /**
  * Service function to create a new user.
@@ -49,4 +49,19 @@ const loginUser = async (email, password) => {
   }
 };
 
-export { createUser, loginUser };
+/**
+ * Service function to logout a user.
+ * @returns {Promise<void>} A promise that resolves when the user is logged out.
+ * @throws {Error} The error message.
+ */
+
+const logoutUser = async () => {
+  try {
+    await auth.signOut();
+  } catch (error) {
+    console.error('Error logging out user:', error);
+    throw error;
+  }
+};
+
+export { createUser, loginUser, logoutUser };
