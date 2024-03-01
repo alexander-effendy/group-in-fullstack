@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,17 +8,21 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}
+    >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color='inherit' href='https://mui.com/'>
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -33,21 +36,45 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const loginDetails = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginDetails),
+      });
+
+      if (response.ok) {
+        const user = await response.json();
+        // Handle login success
+        console.log('Login Successful:', user);
+        // Navigate to another route or set user context
+        navigate('/dashboard'); // Adjust this to where you want users to go after login
+      } else {
+        // Handle errors or invalid login (e.g., show an error message)
+        console.log('Login failed:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Handle network errors or show a generic error message
+    }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component='main' sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -55,10 +82,13 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage:
+              'url(https://source.unsplash.com/random?wallpapers)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+              t.palette.mode === 'light'
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -73,50 +103,59 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component='h1' variant='h5'>
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box
+              component='form'
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
                 autoFocus
               />
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                control={<Checkbox value='remember' color='primary' />}
+                label='Remember me'
               />
               <Button
-                type="submit"
+                type='submit'
                 fullWidth
-                variant="contained"
+                variant='contained'
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href='#' variant='body2'>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" onClick={() => navigate('/register')}>
+                  <Link
+                    href='#'
+                    variant='body2'
+                    onClick={() => navigate('/register')}
+                  >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

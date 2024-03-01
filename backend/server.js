@@ -7,7 +7,7 @@ import auth from './src/routes/auth.routes.js';
 const app = express();
 
 // Define the port to run the server on
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5005;
 
 app.use(cors()); // Use this after the variable declaration
 app.use(express.json());
