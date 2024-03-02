@@ -4,7 +4,7 @@ const page = ({ params } : any) => {
   return (
     <>
       <div>{params.groupId}</div>
-      <p>This page is for unique groups</p>
+      <p>This page is for unique groups {params.groupId}</p>
     </>
     
   )
