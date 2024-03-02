@@ -11,7 +11,6 @@ const page = ({ params } : any) => {
 
   return (
     <Box className='flex'>
-      <Sidebar/>
       <Stack className='w-5/6 p-8 box-border mt-4'>
         <Box className='mb-8'>
           <p className='text-5xl text-wrap' style={{ fontFamily: 'MetropolisSemiBold'}}>{`${groupName}`}</p>

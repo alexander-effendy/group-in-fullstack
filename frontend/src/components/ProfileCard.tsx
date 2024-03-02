@@ -7,18 +7,13 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: FC<ProfileCardProps> = ({ id, leader }) : JSX.Element => {
-  const getRandomColorValue = () => {
-    return Math.floor(Math.random() * 256);
-  }
-  const color = `rgb(${getRandomColorValue()} ${getRandomColorValue()} ${getRandomColorValue()})`
-
   return (
     <Box className='w-36 h-40 relative rounded-lg box-border overflow-hidden shadow-sm shadow-slate-500 flex justify-center'>
       {
         (leader) ? <p className='absolute'>👑</p> : <></>
       }
       <Avatar className='w-14 h-14 absolute right-1/2 top-1/3 translate-x-1/2 -translate-y-1/2 shadow-sm shadow-slate-500 bg-white text-slate-900'>AW</Avatar>
-      <Box className='h-1/3 w-full' sx={{ backgroundColor: color }}>
+      <Box className='h-1/3 w-full bg-primary'>
       </Box>
       <Box className='h-2/3'>
       </Box>

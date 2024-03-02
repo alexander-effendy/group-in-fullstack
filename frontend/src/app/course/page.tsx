@@ -8,7 +8,6 @@ const page = () => {
   return (
     <>
       <div className='flex'>
-        <Sidebar />
         <Box className='w-5/6 right-px p-8'>
           <Box>
             <p
