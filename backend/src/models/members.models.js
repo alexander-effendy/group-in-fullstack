@@ -2,8 +2,9 @@ import { queryDatabase } from "../config/dbConfigs.js";
 
 export async function getMemberByUserId(firebaseUid) {
   try {
-    const query = "SELECT member_id FROM member_firebase_mapping WHERE firebase_uid = ?";
-    console.log("firebaseUid", firebaseUid)
+    const query =
+      "SELECT member_id FROM member_firebase_mapping WHERE firebase_uid = ?";
+    console.log("firebaseUid", firebaseUid);
     const result = await queryDatabase(query, firebaseUid);
     if (result.length === 0) {
       throw new Error("No mapping found for this Firebase UID");
@@ -18,7 +19,8 @@ export async function getMemberByUserId(firebaseUid) {
 
 export async function isUserIdCreated(firebaseUid) {
   try {
-    const query = "SELECT member_id FROM member_firebase_mapping WHERE firebase_uid = ?";
+    const query =
+      "SELECT member_id FROM member_firebase_mapping WHERE firebase_uid = ?";
     const result = await queryDatabase(query, firebaseUid);
 
     return result.length > 0 ? true : false;
@@ -45,10 +47,14 @@ export async function dbGetMemberById(id) {
 export async function dbGetReviewsByMemberId(memberId) {
   try {
     const query = `
-      SELECT reviews.*, members.name as reviewer_name
-      FROM reviews
-      INNER JOIN members ON reviews.reviewer_id = members.member_id
-      WHERE reviews.reviewee_id = ?
+    SELECT reviews.*, members.name as reviewer_name,
+      SUM(CASE WHEN reaction_type = 'like' THEN 1 ELSE 0 END) as likes,
+      SUM(CASE WHEN reaction_type = 'dislike' THEN 1 ELSE 0 END) as dislikes
+    FROM reviews
+    INNER JOIN members ON reviews.reviewer_id = members.member_id
+    LEFT JOIN review_reactions ON reviews.review_id = review_reactions.review_id
+    WHERE reviews.reviewee_id = ?
+    GROUP BY reviews.review_id, members.name, members.member_bio
     `;
     const result = await queryDatabase(query, memberId);
     return result;
@@ -56,12 +62,12 @@ export async function dbGetReviewsByMemberId(memberId) {
     console.error("Error fetching reviews:", error);
     throw new Error(error.message);
   }
-
 }
 
 export async function dbConnectMember(memberId, firebaseUid) {
   try {
-    const query = "INSERT INTO member_firebase_mapping (member_id, firebase_uid) VALUES (?, ?)";
+    const query =
+      "INSERT INTO member_firebase_mapping (member_id, firebase_uid) VALUES (?, ?)";
     const result = await queryDatabase(query, [memberId, firebaseUid]);
     return result;
   } catch (error) {
@@ -94,7 +100,8 @@ export async function dbUpdateMember(memberId, updatedData) {
 
 export async function dbDeleteMember(memberId) {
   try {
-    const Mappingquery = "DELETE FROM member_firebase_mapping WHERE member_id = ?";
+    const Mappingquery =
+      "DELETE FROM member_firebase_mapping WHERE member_id = ?";
     await queryDatabase(Mappingquery, memberId);
 
     const query = "DELETE FROM members WHERE member_id = ?";
