@@ -29,7 +29,7 @@ export async function isMemberIdMatchingUid(memberId, firebaseUid) {
     throw new Error(error.message);
   }
 }
-export async function getMemberById(id) {
+export async function dbGetMemberById(id) {
   try {
     const query = "SELECT * FROM members WHERE member_id = ?";
     const result = await queryDatabase(query, id);
@@ -41,6 +41,23 @@ export async function getMemberById(id) {
     console.error("Error fetching member:", error);
     throw new Error(error.message);
   }
+}
+
+export async function dbGetReviewsByMemberId(memberId) {
+  try {
+    const query = `
+      SELECT reviews.*, members.name as reviewer_name
+      FROM reviews
+      INNER JOIN members ON reviews.reviewer_id = members.member_id
+      WHERE reviews.reviewee_id = ?
+    `;
+    const result = await queryDatabase(query, memberId);
+    return result;
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    throw new Error(error.message);
+  }
+
 }
 
 export async function dbConnectMember(memberId, firebaseUid) {
