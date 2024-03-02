@@ -1,15 +1,19 @@
 import { Box, Stack } from '@mui/material'
 import React from 'react'
+import Link from 'next/link';
 
 const GroupCard = () => {
+  const groupId = 1000;
   return (
-    <Box className='p-2'>
-      <Stack direction='row' spacing={2} className='justify-center border-black border-solid'>
+    <Box className='pt-2 pb-2 pr-2'>
+      <Stack direction='row' spacing={2} className='border-black border-solid'>
         <Box className='w-20 h-20 bg-black rounded-full overflow-hidden'>
 
         </Box>
         <Box>
-          <p className='text-xl hover:cursor-pointer hover:underline' style={{ fontFamily: 'MetropolisSemiBold'}}>Group Name</p> 
+          <Link href={`/group/${groupId}`}>
+            <p className='text-xl hover:cursor-pointer hover:underline' style={{ fontFamily: 'MetropolisSemiBold'}}>Group Name</p> 
+          </Link>
           <p className='text-xs' style={{ fontFamily: 'MetropolisRegular'}}>Course Code</p>
           <Box className='flex mt-2'>
             <Stack direction='row'>
@@ -19,7 +23,7 @@ const GroupCard = () => {
                 </g>
               </svg>
               <Box className='w-6 h-6 flex'>
-                <p className='text-xs ml-1' style={{ fontFamily: 'MetropolisRegular'}}>4/5</p>
+                <p className='text-xs ml-1' style={{ fontFamily: 'MetropolisRegular'}}>3/5</p>
               </Box> 
             </Stack>
           </Box>
