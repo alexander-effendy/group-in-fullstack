@@ -2,7 +2,7 @@
 import Sidebar from '../components/Sidebar';
 import GroupCard from '../components/GroupCard';
 import CourseCard from '../components/CourseCard';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Grid } from '@mui/material';
 
 export default function Home() {
   return (
@@ -118,16 +118,29 @@ export default function Home() {
       <Box className='w-5/6 right-px p-8'>
         <Box>
           <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Courses</p>
-          <Stack direction='row' spacing={2}>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-          </Stack>
+          <Grid container direction='row' spacing={2}>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard/>
+            </Grid>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard/>
+            </Grid>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard/>
+            </Grid>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard/>
+            </Grid>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard/>
+            </Grid>
+          </Grid>
         </Box>
         <Box>
           <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Groups</p>
           <Stack direction='row' spacing={2}>
+            <GroupCard/>
+            <GroupCard/>
             <GroupCard/>
           </Stack>
         </Box>
