@@ -3,6 +3,10 @@ import { createMember, deleteMember, getMemberById, updateMember } from "../serv
 import { getMemberByUserId, isUserIdCreated } from "../models/members.models.js";
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  //TODO get user profile, groups and reviews
+})
+
 router.post("/create", async (req, res) => {
   try {
     const uid = req.user.uid;
