@@ -1,4 +1,4 @@
-export async function addReview(reviewee_id, rating, comment) {
+export async function dbCreateReview(reviewee_id, rating, comment) {
     // TODO: Get the id of the reviewer
     const query = `
           INSERT INTO reviews (reviewee_id, rating, comment)
@@ -14,7 +14,7 @@ export async function addReview(reviewee_id, rating, comment) {
     }
   }
 
-export async function deleteReview(reviewId) {
+export async function dbDeleteReview(reviewId) {
     const query = `
           DELETE FROM reviews 
           WHERE id = ?`;
