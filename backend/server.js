@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/auth", auth);
 app.use("/members", authMiddleware, members);
 
+
 app.use(express.static("public"));
 
 // Make the application listen on the specified port

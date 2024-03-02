@@ -5,9 +5,6 @@ const router = express.Router();
 
 router.get("/:id", async (req, res) => {
   try {
-    console.log(req)
-    const uid = req.user.uid;
-    console.log(uid)
     const member = await getMemberById(req.params.id);
     res.status(200).send(member);
   } catch (error) {
@@ -18,7 +15,8 @@ router.get("/:id", async (req, res) => {
 router.put("/update/:id", async (req, res) => {
   try {
     const uid = req.user.uid;
-    const updatedMember = await updateMember(req.params.id, req.body);
+    const member_id = Number(req.params.id)
+    const updatedMember = await updateMember(member_id, uid, req.body);
     res.status(200).send({ message: "Member updated", updatedMember });
   } catch (error) {
     res.status(400).send({ message: "Failed to update member", error: error.message });

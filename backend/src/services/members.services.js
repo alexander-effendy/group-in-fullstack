@@ -17,15 +17,16 @@ export async function createMember(username, firebaseUid) {
 }
 
 // Update an existing member
-export async function updateMember(memberId, updatedData) {
+export async function updateMember(memberId, firebaseUid, updatedData) {
   try {
+    console.log(memberId, firebaseUid, updatedData)
     const isMatch = await isMemberIdMatchingUid(memberId, firebaseUid);
     if (!isMatch) {
       throw new Error("The provided Firebase UID does not match the member ID");
     }
 
-    await dbUpdateMember(updatedData);
-    return { message: "Member deleted" };
+    await dbUpdateMember(memberId, updatedData);
+    return { message: "Member Updated" };
   } catch (error) {
     throw new Error(error.message);
   }
