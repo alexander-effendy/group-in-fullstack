@@ -45,7 +45,6 @@ const page = ({ params } : any) => {
         </Box>
       </Box>
     </Stack>
-    
   )
 }
 
