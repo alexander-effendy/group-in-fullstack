@@ -26,7 +26,8 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const uid = req.user.uid;
-    const deletedMember = await deleteMember(req.params.id, uid);
+    const member_id = Number(req.params.id)
+    const deletedMember = await deleteMember(member_id, uid);
     res.status(200).send({ message: "Member deleted", deletedMember });
   } catch (error) {
     res.status(400).send({ message: "Failed to delete member", error: error.message });

@@ -71,6 +71,9 @@ export async function dbUpdateMember(memberId, updatedData) {
 
 export async function dbDeleteMember(memberId) {
   try {
+    const Mappingquery = "DELETE FROM member_firebase_mapping WHERE member_id = ?";
+    await queryDatabase(Mappingquery, memberId);
+
     const query = "DELETE FROM members WHERE member_id = ?";
     const result = await queryDatabase(query, memberId);
     return result;
