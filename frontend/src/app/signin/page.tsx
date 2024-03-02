@@ -23,7 +23,10 @@ export default function Example() {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Login successful:', userCredential.user);
+      // Retrieve the token
+      const token = await userCredential.user.getIdToken();
+      console.log('User token: ', token);
+      localStorage.setItem('userToken', token);
       router.push('/');
     } catch (error: any) {
       setError(true);

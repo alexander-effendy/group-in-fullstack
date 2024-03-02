@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 
+import Button from '@mui/material/Button';
+
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 
@@ -18,6 +20,7 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -28,10 +31,14 @@ export default function Register() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Signup successful with user: ', userCredential.user);
+      console.log('Signup successful with user: ', userCredential.user.getIdToken());
+      const token = await userCredential.user.getIdToken();
+      console.log('User token: ', token);
+      localStorage.setItem('userToken', token);
       router.push('/');
     } catch (error: any) {
       console.error('Signup error', error);
+      setError(true);
       return;
     }
   }
@@ -141,18 +148,18 @@ export default function Register() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {error && <div className="text-red-500 text-sm font-bold">Email address is already taken</div>}
             </div>
 
             <div>
-              <Link
+              <Button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 style={{ backgroundColor: '#563FE7' }}
-                href="/register"
                 onClick={handleSubmit}
               >
                 Sign Up
-              </Link>
+              </Button>
             </div>
           </form>
 
