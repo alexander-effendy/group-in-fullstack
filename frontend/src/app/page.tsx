@@ -16,7 +16,7 @@ export default function Home() {
             <Grid item xs={4} className='max-w-54'>
               <CourseCard courseId='COMP6080' />
             </Grid>
-            <Grid item xs={4} className='max-w-54'>
+            {/* <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
             </Grid>
             <Grid item xs={4} className='max-w-54'>
@@ -27,7 +27,7 @@ export default function Home() {
             </Grid>
             <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
-            </Grid>
+            </Grid> */}
             <Grid item xs={4} className='max-w-54'>
               <AddCourse/>
             </Grid>
