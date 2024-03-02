@@ -15,13 +15,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@mui/base';
 
+import { useRouter } from 'next/navigation';
+
 const user = {
   name: 'Alexander Effendy',
   imageUrl: profilePic,
 };
 
 const Sidebar = () => {
-  const pathname = usePathname();
+  const router = useRouter();
+  const handleLogout = () => {
+    router.push('/signin');
+  }
 
   return (
     <div className='fixed flex flex-col w-60 bg-white items-center h-screen shadow-xl rounded-r-xl pt-10'>
@@ -42,7 +47,10 @@ const Sidebar = () => {
         <SidebarButton href='/profile' text='Profile' Icon={<UserIcon />} />
       </div>
 
-      <Button className='p-2 mb-5 text-white mt-auto bg-primary w-2/3 rounded-lg shadow-lg hover:bg-secondary hover:text-primary'>
+      <Button 
+        className='p-2 mb-5 text-white mt-auto bg-primary w-2/3 rounded-lg shadow-lg hover:bg-secondary hover:text-primary'
+        onClick={handleLogout}
+      >  
         Log out
       </Button>
     </div>
