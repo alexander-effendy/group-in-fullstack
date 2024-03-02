@@ -1,25 +1,34 @@
 import express from "express";
+import { addReview, deleteReview, getReview } from "../models/reviews.models";
 
-router.get("/add", async (req, res) => {
+router.post("/add", async (req, res) => {
     try {
-        const reviews = await addReview(req, body);
-        res.status(201).json({ message: 'Review added successfully', review: newReview });
+        const { reviewedId, rating, comment } = req.body;
+        const result = await addReview(reviewedId, rating, comment);
+
+        res.status(201).json(result);
     } catch (error) {
-        res.status(500).send(error.message);
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 router.delete("/delete/:reviewId", async (req, res) => {
     try {
         const { reviewId } = req.params;
-
         const deletedReview = await deleteReview(reviewId);
+        res.status(200).json({ message: 'Review deleted successfully', review: deletedReview });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-        if (deletedReview) {
-            res.status(200).json({ message: 'Review deleted successfully', review: deletedReview });
-        } else {
-            res.status(404).json({ error: 'Review not found' });
-        }
+router.get("/:reviewId", async (req, res) => {
+    try {
+        const { reviewId } = req.params;
+        const review = await getReview(reviewId);
+        res.status(200).json({ review });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
