@@ -120,6 +120,9 @@ export default function Home() {
           <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Courses</p>
           <Stack direction='row' spacing={2}>
             <CourseCard/>
+            <CourseCard/>
+            <CourseCard/>
+            <CourseCard/>
           </Stack>
         </Box>
         <Box>
