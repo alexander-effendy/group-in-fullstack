@@ -6,6 +6,8 @@ import {
   isMemberIdMatchingUid,
 } from "../models/members.models.js";
 
+
+
 export async function createMember(username, firebaseUid) {
   try {
     const memberId = await dbCreateMember(username, firebaseUid);
@@ -17,14 +19,8 @@ export async function createMember(username, firebaseUid) {
 }
 
 // Update an existing member
-export async function updateMember(memberId, firebaseUid, updatedData) {
+export async function updateMember(memberId, updatedData) {
   try {
-    console.log(memberId, firebaseUid, updatedData)
-    const isMatch = await isMemberIdMatchingUid(memberId, firebaseUid);
-    if (!isMatch) {
-      throw new Error("The provided Firebase UID does not match the member ID");
-    }
-
     await dbUpdateMember(memberId, updatedData);
     return { message: "Member Updated" };
   } catch (error) {
@@ -33,13 +29,8 @@ export async function updateMember(memberId, firebaseUid, updatedData) {
 }
 
 // Delete a member
-export async function deleteMember(memberId, firebaseUid) {
+export async function deleteMember(memberId) {
   try {
-    const isMatch = await isMemberIdMatchingUid(memberId, firebaseUid);
-    if (!isMatch) {
-      throw new Error("The provided Firebase UID does not match the member ID");
-    }
-
     await dbDeleteMember(memberId);
     return { message: "Member deleted" };
   } catch (error) {
