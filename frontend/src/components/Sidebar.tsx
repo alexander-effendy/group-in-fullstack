@@ -26,8 +26,9 @@ const user = {
 const Sidebar = () => {
   const router = useRouter();
   const handleLogout = () => {
+    localStorage.removeItem('userToken');
     router.push('/signin');
-  }
+  };
 
   return (
     <div className='fixed flex flex-col w-60 bg-white items-center h-screen shadow-xl rounded-r-xl pt-10'>
@@ -45,14 +46,13 @@ const Sidebar = () => {
         <SidebarButton href='/' Icon={<HomeIcon />} text='Dashboard' />
         <SidebarButton href='/course' text='Courses' Icon={<BookOpenIcon />} />
         <SidebarButton href='/group' text='Groups' Icon={<UserGroupIcon />} />
-        <SidebarButton href='/review' text='Reviews' Icon={<PencilSquareIcon />} />
         <SidebarButton href='/profile' text='Profile' Icon={<UserIcon />} />
       </div>
 
-      <Button 
+      <Button
         className='p-2 mb-5 text-white mt-auto bg-primary w-2/3 rounded-lg shadow-lg hover:bg-secondary hover:text-primary'
         onClick={handleLogout}
-      >  
+      >
         Log out
       </Button>
     </div>
