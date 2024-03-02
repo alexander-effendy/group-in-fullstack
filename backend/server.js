@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import auth from "./src/routes/auth.routes.js";
 import members from "./src/routes/members.routes.js";
+import reviews from "./src/routes/reviews.routes.js";
 import authMiddleware from "./src/middlewares/auth.middleware.js";
 
 // Create an Express application
@@ -16,7 +17,7 @@ app.use(express.json());
 
 app.use("/auth", auth);
 app.use("/members", authMiddleware, members);
-
+app.use("/reviews", authMiddleware, reviews);
 
 app.use(express.static("public"));
 

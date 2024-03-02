@@ -1,10 +1,11 @@
 import express from "express";
-import { dbCreateReview, dbDeleteReview, getReview } from "../models/reviews.models";
+import { dbCreateReview, dbDeleteReview, getReview } from "../models/reviews.models.js";
+const router = express.Router();
 
 router.post("/add", async (req, res) => {
     try {
-        const { reviewedId, rating, comment } = req.body;
-        const result = await dbCreateReview(reviewedId, rating, comment);
+        const { reviewerId, rating, comment, reviewedId } = req.body;
+        const result = await dbCreateReview(reviewerId, rating, comment, reviewedId);
 
         res.status(201).json(result);
     } catch (error) {
@@ -34,3 +35,5 @@ router.get("/:reviewId", async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+export default router;
