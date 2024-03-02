@@ -10,14 +10,11 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
   const [selectCourse, setSelectCourse] = useState('');
   const [validateCourse, setValidateCourse] = useState(true);
 
-  useEffect(() => {
-    
-  })
-
   // find a course
   // if course does not exist then validateCourse false
   const handleFindCourse = async () => {
     try {
+      if (selectCourse === '') return;
       const response = await fetch(`http://localhost:5005/courses/${selectCourse}`, {
         method: 'GET',
         headers: {
@@ -33,6 +30,7 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
       const courseData = await response.json();
       console.log(courseData);
       // pass courseData to a course card
+      closeModal();
       
 
       // courseData -> pass details to CourseCard component --> add CourseCard and details to this user
@@ -103,13 +101,20 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
                     {!validateCourse && <div className="text-red-500">The course {selectCourse} does not exist.</div>}
                   </div>
 
-                  <div className="mt-4">
+                  <div className="mt-4 gap-3 flex">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={handleFindCourse}
                     >
                       Done
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>
