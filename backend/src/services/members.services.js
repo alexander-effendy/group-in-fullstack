@@ -5,6 +5,7 @@ import {
   dbGetMemberById,
   dbGetReviewsByMemberId,
   dbUpdateMember,
+  isUserIdCreated,
 } from "../models/members.models.js";
 
 export async function getMemberById(memberId) {
@@ -15,11 +16,14 @@ export async function getMemberById(memberId) {
   } catch (error) {
     throw new Error(error.message);
   }
-
 }
 
 export async function createMember(username, firebaseUid) {
   try {
+    if (await isUserIdCreated(firebaseUid)) {
+      throw new Error("User already exists");
+    }
+
     const memberId = await dbCreateMember(username, firebaseUid);
     dbConnectMember(memberId, firebaseUid);
     return memberId;

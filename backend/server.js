@@ -3,6 +3,10 @@ import express from "express";
 import cors from "cors";
 import auth from "./src/routes/auth.routes.js";
 import members from "./src/routes/members.routes.js";
+import reviews from "./src/routes/reviews.routes.js";
+import groupPosts from "./src/routes/group_posts.routes.js";
+import groups from "./src/routes/groups.routes.js";
+import courses from "./src/routes/courses.routes.js";
 import authMiddleware from "./src/middlewares/auth.middleware.js";
 
 // Create an Express application
@@ -16,7 +20,10 @@ app.use(express.json());
 
 app.use("/auth", auth);
 app.use("/members", authMiddleware, members);
-
+app.use("/reviews", authMiddleware, reviews);
+app.use("/group_posts", authMiddleware, groupPosts);
+app.use("/groups", authMiddleware, groups);
+app.use("/courses", authMiddleware, courses);
 
 app.use(express.static("public"));
 
