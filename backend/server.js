@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import auth from './src/routes/auth.routes.js';
+import members from './src/routes/members.routes.js';
 
 // Create an Express application
 const app = express();
@@ -13,6 +14,7 @@ app.use(cors()); // Use this after the variable declaration
 app.use(express.json());
 
 app.use('/', auth);
+app.use('/members', members)
 
 app.use(express.static('public'));
 
