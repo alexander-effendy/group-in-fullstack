@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     console.log('init')
-    const member = await getGroupsByCourseId(req.params.id);
+    const member = await dbGetGroupsByCourseId(req.params.id);
     res.status(200).send(member);
   } catch (error) {
     res.status(404).send({ message: "Member not found", error: error.message });
