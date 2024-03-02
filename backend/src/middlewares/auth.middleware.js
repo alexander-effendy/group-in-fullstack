@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import serviceAccount from '../../groupedin-b89ef-firebase-adminsdk-1zv3d-3e3e3e3e3e.json';
+import serviceAccount from '../../.FirebaseAdminSDK.json' assert { type: 'json' };
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -25,12 +25,15 @@ const authMiddleware = async (req, res, next) => {
   const token = headerToken.split(' ')[1];
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
+    console.log('verified')
     req.user = decodedToken;
     next();
   } catch (error) {
     console.error('Error verifying auth token', error);
     res.status(403).send({ message: 'Could not authorize' });
   }
+
+  console.log('token accepted')
 };
 
 export default authMiddleware;
