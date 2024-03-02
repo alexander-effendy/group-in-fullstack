@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Logo from '../../assets/Vector.png';
-import Illustration from '../../assets/Illustration.png';
+import Logo from '../../../assets/Vector.png';
+import Illustration from '../../../assets/Illustration.png';
 
 export default function Register() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
-
+  
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -40,7 +40,6 @@ export default function Register() {
         userCredential.user.getIdToken()
       );
       const token = await userCredential.user.getIdToken();
-      console.log('User token: ', token);
       localStorage.setItem('userToken', token);
       router.push('/');
     } catch (error: any) {

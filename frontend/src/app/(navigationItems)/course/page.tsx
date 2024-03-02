@@ -12,7 +12,7 @@ const page = () => {
           <Box>
             <p
               className='text-4xl my-4'
-              style={{ fontFamily: 'MetropolisMedium' }}
+              style={{ fontFamily: 'MetropolisSemiBold' }}
             >
               Course
             </p>
@@ -26,13 +26,13 @@ const page = () => {
               spacing={2}
             >
               <Grid item xs={4} className='max-w-54'>
-                <CourseCard courseId='COMP6080' />
+                <CourseCard/>
               </Grid>
               <Grid item xs={4} className='max-w-54'>
-                <CourseCard courseId='COMP6080' />
+                <CourseCard/>
               </Grid>
               <Grid item xs={4} className='max-w-54'>
-                <CourseCard courseId='COMP6080' />
+                <CourseCard/>
               </Grid>
               {/* <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
