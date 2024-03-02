@@ -16,10 +16,10 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
 
   const [modalVisible, setModalVisible] = useState(false);
-
   const handleAddCourse = () => {
     setModalVisible(true);
   }
+  
   const router = useRouter();
   if (!localStorage.getItem('userToken')) {
     router.push('/signin');

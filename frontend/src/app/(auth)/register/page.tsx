@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Logo from '../../assets/Vector.png';
-import Illustration from '../../assets/Illustration.png';
+import Logo from '../../../assets/Vector.png';
+import Illustration from '../../../assets/Illustration.png';
 
 export default function Register() {
   const router = useRouter();

@@ -23,6 +23,7 @@ const config: Config = {
         blackCustom: '#3c3c3c',
         whiteCustom: '#f5f5f5',
         grayDashboard: '#A4A4A4',
+        orangeCustom: '#FFAB00',
       },
     },
   },
