@@ -21,15 +21,6 @@ const page = () => {
           <Box>
           <Grid container className='flex flex-wrap' direction='row' spacing={2}>
             <Grid item xs={4} className='max-w-54'>
-              <CourseCard courseId='COMP6080' />
-            </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard courseId='COMP6080' />
-            </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard courseId='COMP6080' />
-            </Grid>
-            {/* <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
             </Grid>
             <Grid item xs={4} className='max-w-54'>
@@ -38,9 +29,6 @@ const page = () => {
             <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
             </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
-            </Grid> */}
             <AddCourse/>
           </Grid>
           </Box>
