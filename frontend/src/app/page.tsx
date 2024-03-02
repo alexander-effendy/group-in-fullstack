@@ -3,10 +3,11 @@
 import Sidebar from '../components/Sidebar';
 import GroupCard from '../components/GroupCard';
 import CourseCard from '../components/CourseCard';
-import { Box, Stack, Grid } from '@mui/material';
+import { Box, Stack, Grid, Button } from '@mui/material';
 import AddCourse from '@/components/AddCourse';
+import React, { useState } from 'react';
+import Modal from '../components/Modal';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 const coursesEnrolled = [
   {
@@ -20,25 +21,29 @@ const coursesEnrolled = [
 ];
 
 export default function Home() {
-  const router = useRouter();
-  const [token, setToken] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    let tokenCheck = localStorage.getItem('userToken');
-    if (!tokenCheck) {
-      router.push('/signin');
-    } else {
-      setToken(tokenCheck);
-    }
-  }, [router, setToken]); // include setToken and router in the dependency array if they are props or state
+  const handleAddCourse = () => {
+    setModalVisible(true);
+  };
+  const router = useRouter();
+  if (!localStorage.getItem('userToken')) {
+    router.push('/signin');
+  } else {
+    router.push('/');
+  }
 
   return (
     <div className='flex'>
       <Sidebar />
       <Box className='ml-60 w-5/6 right-px p-8'>
         <Box>
+          <Modal
+            isOpen={modalVisible}
+            closeModal={() => setModalVisible(false)}
+          />
           <p
-            className='text-4xl underline my-4'
+            className='text-4xl my-4'
             style={{ fontFamily: 'MetropolisSemiBold' }}
           >
             Your Courses
@@ -54,15 +59,16 @@ export default function Home() {
                 />
               </Grid>
             ))}
-
             <Grid item xs={4} className='max-w-54'>
-              <AddCourse />
+              <Button onClick={handleAddCourse}>
+                <AddCourse />
+              </Button>
             </Grid>
           </Grid>
         </Box>
         <Box className='mt-16'>
           <p
-            className='text-4xl underline my-4'
+            className='text-4xl my-4'
             style={{ fontFamily: 'MetropolisSemiBold' }}
           >
             Your Groups
