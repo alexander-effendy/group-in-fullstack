@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/add", async (req, res) => {
     try {
         const uid = req.user.uid;
+        console.log(req);
         const reviewerId = await getMemberByUserId(uid);
         const { rating, comment, reviewedId } = req.body;
         const result = await dbCreateReview(reviewerId, rating, comment, reviewedId);
