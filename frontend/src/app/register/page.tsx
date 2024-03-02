@@ -2,19 +2,20 @@ import Link from 'next/link'
 import Image from 'next/image';
 
 import Logo from '../../assets/Vector.png';
-import Colonialism from '../../assets/Colonialism.jpeg';
+import Illustration from '../../assets/Illustration.png';
 
 export default function Register() {
   return (
     <div className="flex flex-row min-h-screen">
-      <div className="bg-blue-500 w-3/5">
-        {/* <Image
-          className="mx-auto w-auto"
-          src={Colonialism}
+      <div 
+        className="bg-transparent w-3/5 z-[-10] hidden md:block">
+        <Image
+          src={Illustration}
           alt="Your Company"
-        /> */}
+          style={{ width: '100vw' }}
+        />
       </div>
-      <div className="flex min-h-full w-2/5 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full md:w-2/5 w-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto h-20 w-auto"
