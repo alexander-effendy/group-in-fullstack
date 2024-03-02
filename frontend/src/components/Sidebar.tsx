@@ -24,7 +24,7 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className='fixed flex flex-col w-60 bg-white items-center h-screen shadow-xl rounded-xl pt-10'>
+    <div className='fixed flex flex-col w-60 bg-white items-center h-screen shadow-xl rounded-r-xl pt-10'>
       <div className='flex flex-col w-full items-center gap-1'>
         <Image src={logo} alt='GroupedIn' className='w-20 h-20' />
         <p
@@ -42,7 +42,7 @@ const Sidebar = () => {
         <SidebarButton href='/profile' text='Profile' Icon={<UserIcon />} />
       </div>
 
-      <Button className='p-2 mb-5 text-white mt-auto bg-primary w-2/3 rounded-lg hover:bg-secondary hover:text-primary'>
+      <Button className='p-2 mb-5 text-white mt-auto bg-primary w-2/3 rounded-lg shadow-lg hover:bg-secondary hover:text-primary'>
         Log out
       </Button>
     </div>
