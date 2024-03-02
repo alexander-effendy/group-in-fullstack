@@ -13,6 +13,7 @@ const config: Config = {
       },
       colors : {
         "primary": "#563FE7",
+        "addColor": "#0065FF",
       },
     },
   },
