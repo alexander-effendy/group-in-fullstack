@@ -18,15 +18,13 @@ export default function Home() {
     router.push('/');
   }
 
-  const [courses, setCourses] = useState(null);
-  
   return (
     <div className='flex'>
       <Sidebar />
       <Box className='ml-60 w-5/6 right-px p-8'>
         <Box>
           <p
-            className='text-4xl underline my-4'
+            className='text-4xl my-4'
             style={{ fontFamily: 'MetropolisSemiBold' }}
           >
             Your Courses
@@ -42,7 +40,7 @@ export default function Home() {
         </Box>
         <Box className='mt-16'>
           <p
-            className='text-4xl underline my-4'
+            className='text-4xl my-4'
             style={{ fontFamily: 'MetropolisSemiBold' }}
           >
             Your Groups

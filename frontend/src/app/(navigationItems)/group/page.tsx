@@ -12,7 +12,7 @@ export default function page() {
           <Box>
             <p
               className='text-4xl my-4'
-              style={{ fontFamily: 'MetropolisMedium' }}
+              style={{ fontFamily: 'MetropolisSemiBold' }}
             >
               Groups
             </p>
