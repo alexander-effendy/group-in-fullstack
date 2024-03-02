@@ -11,7 +11,7 @@ export default function Home() {
       <Sidebar/>
       <Box className='w-5/6 right-px p-8'>
         <Box>
-          <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Courses</p>
+          <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisSemiBold' }}>Your Courses</p>
           <Grid container className='flex flex-wrap' direction='row' spacing={2}>
             <Grid item xs={4} className='max-w-54'>
               <CourseCard courseId='COMP6080' />
@@ -38,7 +38,7 @@ export default function Home() {
           </Grid>
         </Box>
         <Box className='mt-16'>
-          <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Groups</p>
+          <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisSemiBold' }}>Your Groups</p>
           <Grid container direction='row' spacing={2}>
             <Grid item xs={4} className='max-w-54'>
               <GroupCard/>
