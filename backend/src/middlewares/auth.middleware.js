@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import serviceAccount from '../../groupedin-b89ef-firebase-adminsdk-1zv3d-3e3e3e3e3e.json';
+import serviceAccount from '../../.FirebaseAdminSDK.json' assert { type: 'json' };
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
