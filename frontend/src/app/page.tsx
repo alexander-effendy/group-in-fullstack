@@ -26,6 +26,7 @@ export default function Home() {
   } else {
     router.push('/');
   }
+
   return (
     <div className='flex'>
       <Sidebar />
@@ -33,7 +34,7 @@ export default function Home() {
         <Box>
           <Modal isOpen={modalVisible} closeModal={() => setModalVisible(false)}/>
           <p
-            className='text-4xl underline my-4'
+            className='text-4xl my-4'
             style={{ fontFamily: 'MetropolisSemiBold' }}
           >
             Your Courses
@@ -58,13 +59,12 @@ export default function Home() {
               <Button onClick={handleAddCourse}>
                 <AddCourse />
               </Button>
-
             </Grid>
           </Grid>
         </Box>
         <Box className='mt-16'>
           <p
-            className='text-4xl underline my-4'
+            className='text-4xl my-4'
             style={{ fontFamily: 'MetropolisSemiBold' }}
           >
             Your Groups
