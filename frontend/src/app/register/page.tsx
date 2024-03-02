@@ -39,7 +39,7 @@ export default function Register() {
   return (
     <div className="flex flex-row min-h-screen">
       <div 
-        className="bg-transparent w-3/5 z-[-10] hidden md:block">
+        className="bg-transparent w-3/5 z-[-10] hidden md:block flex justify items-center align-center">
         <Image
           src={Illustration}
           alt="Your Company"

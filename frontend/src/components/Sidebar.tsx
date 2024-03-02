@@ -37,7 +37,7 @@ const Sidebar = () => {
       <Link
         href='/profile'
         className='flex w-full justify-between items-center mt-auto py-5 px-5 hover:bg-gray-100 cursor-pointer'
-      >
+      >s
         <Image
           src={user.imageUrl}
           alt='Profile'
