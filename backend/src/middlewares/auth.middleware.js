@@ -25,7 +25,6 @@ const authMiddleware = async (req, res, next) => {
   const token = headerToken.split(' ')[1];
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
-    console.log('verified')
     req.user = decodedToken;
     next();
   } catch (error) {
@@ -33,7 +32,6 @@ const authMiddleware = async (req, res, next) => {
     res.status(403).send({ message: 'Could not authorize' });
   }
 
-  console.log('token accepted')
 };
 
 export default authMiddleware;
