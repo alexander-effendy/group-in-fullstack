@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 
 interface MyModalProps {
   isOpen: boolean;
@@ -9,6 +9,10 @@ interface MyModalProps {
 const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
   const [selectCourse, setSelectCourse] = useState('');
   const [validateCourse, setValidateCourse] = useState(true);
+
+  useEffect(() => {
+    
+  })
 
   // find a course
   // if course does not exist then validateCourse false
@@ -92,6 +96,7 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
                       value={selectCourse}
                       onChange={(e) => {
                         setSelectCourse(e.target.value);
+                        setValidateCourse(true);
                       }}
                       className="mt-1 mb-0 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
