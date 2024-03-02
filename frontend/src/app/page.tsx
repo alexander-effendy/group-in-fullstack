@@ -12,7 +12,13 @@ export default function Home() {
       <Box className='w-5/6 right-px p-8'>
         <Box>
           <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Courses</p>
-          <Grid container direction='row' spacing={2}>
+          <Grid container className='flex flex-wrap' direction='row' spacing={2}>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard courseId='COMP6080' />
+            </Grid>
+            <Grid item xs={4} className='max-w-54'>
+              <CourseCard courseId='COMP6080' />
+            </Grid>
             <Grid item xs={4} className='max-w-54'>
               <CourseCard courseId='COMP6080' />
             </Grid>
@@ -28,9 +34,7 @@ export default function Home() {
             <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
             </Grid> */}
-            <Grid item xs={4} className='max-w-54'>
-              <AddCourse/>
-            </Grid>
+            <AddCourse/>
           </Grid>
         </Box>
         <Box className='mt-16'>

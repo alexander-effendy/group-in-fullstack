@@ -6,6 +6,7 @@ import {
   HomeIcon,
   BookOpenIcon,
   UserGroupIcon,
+  PencilSquareIcon,
 } from '@heroicons/react/24/outline';
 import profilePic from '../assets/profilePic.jpg';
 import Link from 'next/link';
@@ -32,6 +33,7 @@ const Sidebar = () => {
         <SidebarButton href='/' Icon={<HomeIcon />} text='Dashboard' />
         <SidebarButton href='/course' text='Courses' Icon={<BookOpenIcon />} />
         <SidebarButton href='/group' text='Groups' Icon={<UserGroupIcon />} />
+        <SidebarButton href='/review' text='Reviews' Icon={<PencilSquareIcon />} />
       </div>
 
       <Link
