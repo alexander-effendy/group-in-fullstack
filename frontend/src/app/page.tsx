@@ -13,6 +13,9 @@ export default function Home() {
           <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Courses</p>
           <Grid container direction='row' spacing={2}>
             <Grid item xs={4} className='max-w-54'>
+              <CourseCard courseId='COMP6080' />
+            </Grid>
+            {/* <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
             </Grid>
             <Grid item xs={4} className='max-w-54'>
@@ -23,10 +26,7 @@ export default function Home() {
             </Grid>
             <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
-            </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
         <Box className='mt-16'>
