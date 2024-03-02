@@ -1,21 +1,37 @@
-"use client"
+'use client';
 
-// import Image from 'next/image';
 import Sidebar from '../components/Sidebar';
 import GroupCard from '../components/GroupCard';
 import CourseCard from '../components/CourseCard';
 import { Box, Stack, Grid } from '@mui/material';
 import AddCourse from '@/components/AddCourse';
-
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+const coursesEnrolled = [
+  {
+    courseId: 'COMP6080',
+    courseName: 'Frontend',
+  },
+  {
+    courseId: 'COMP1511',
+    courseName: 'Backend',
+  },
+];
 
 export default function Home() {
   const router = useRouter();
-  if (!localStorage.getItem('userToken')) {
-    router.push('/signin');
-  } else {
-    router.push('/');
-  }
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    let tokenCheck = localStorage.getItem('userToken');
+    if (!tokenCheck) {
+      router.push('/signin');
+    } else {
+      setToken(tokenCheck);
+    }
+  }, [router, setToken]); // include setToken and router in the dependency array if they are props or state
+
   return (
     <div className='flex'>
       <Sidebar />
@@ -28,21 +44,17 @@ export default function Home() {
             Your Courses
           </p>
           <Grid container direction='row' spacing={2}>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard courseId='COMP6080' />
-            </Grid>
-            {/* <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
-            </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
-            </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
-            </Grid>
-            <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
-            </Grid> */}
+            {coursesEnrolled.map((course, index) => (
+              <Grid item xs={4} className='max-w-54' key={index}>
+                <CourseCard
+                  course={{
+                    code: course.courseId,
+                    name: course.courseName,
+                  }}
+                />
+              </Grid>
+            ))}
+
             <Grid item xs={4} className='max-w-54'>
               <AddCourse />
             </Grid>
