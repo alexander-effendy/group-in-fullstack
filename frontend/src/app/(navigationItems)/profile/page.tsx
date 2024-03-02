@@ -8,7 +8,7 @@ const page = () => {
     background: 'linear-gradient(90deg, rgba(86,63,231,1) 0%, rgba(149,71,254,1) 100%)',
   }
   return (
-    <Box>
+    <Box className='overflow-hidden'>
       <Box className='h-1/5 fixed w-full -z-10' sx={gradientStyle}>
       </Box>
       <Box className='p-8 h-screen box-border '>
