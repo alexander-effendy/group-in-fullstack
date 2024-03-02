@@ -1,4 +1,4 @@
-import { queryDatabase } from "../config/dbConfigs";
+import { queryDatabase } from "../config/dbConfigs.js";
 
 export async function getReviewsByMemberId(memberId) {
   try {
@@ -35,7 +35,7 @@ export async function dbCreateReview(reviewerId, rating, comment, reviewedId) {
 export async function dbDeleteReview(reviewId) {
   const query = `
       DELETE FROM reviews 
-      WHERE id = ?`;
+      WHERE review_id = ?`;
 
   try {
       const results = await queryDatabase(query, [reviewId]);

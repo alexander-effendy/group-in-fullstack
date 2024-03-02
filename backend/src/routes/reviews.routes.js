@@ -1,10 +1,14 @@
 import express from "express";
 import { dbCreateReview, dbDeleteReview, getReview } from "../models/reviews.models.js";
+import { getMemberByUserId } from "../models/members.models.js";
+
 const router = express.Router();
 
 router.post("/add", async (req, res) => {
     try {
-        const { reviewerId, rating, comment, reviewedId } = req.body;
+        const uid = req.user.uid;
+        const reviewerId = await getMemberByUserId(uid);
+        const { rating, comment, reviewedId } = req.body;
         const result = await dbCreateReview(reviewerId, rating, comment, reviewedId);
 
         res.status(201).json(result);
@@ -17,6 +21,7 @@ router.post("/add", async (req, res) => {
 router.delete("/delete/:reviewId", async (req, res) => {
     try {
         const { reviewId } = req.params;
+        console.log('zoooooooooooo', reviewId);
         const deletedReview = await dbDeleteReview(reviewId);
         res.status(200).json({ message: 'Review deleted successfully', review: deletedReview });
     } catch (error) {
