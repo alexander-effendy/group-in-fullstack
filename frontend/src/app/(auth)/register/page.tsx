@@ -51,14 +51,14 @@ export default function Register() {
 
   return (
     <div className='flex flex-row min-h-screen'>
-      <div className='bg-transparent w-3/5 z-[-10] hidden md:block flex justify items-center align-center'>
+      <div className='bg-transparent w-3/5 z-[-10] bg-blue-200 hidden lg:block flex justify items-center align-center'>
         <Image
           src={Illustration}
           alt='Your Company'
-          style={{ width: '100vw' }}
+          style={{ height: '100vh' }}
         />
       </div>
-      <div className='flex min-h-full md:w-2/5 w-full flex-col justify-center px-6 py-12 lg:px-8'>
+      <div className='flex min-h-full lg:w-2/5 w-full flex-col justify-center px-6 py-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Image
             className='mx-auto h-20 w-auto'
