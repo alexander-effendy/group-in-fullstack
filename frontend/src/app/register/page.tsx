@@ -17,8 +17,11 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (event: any) => {
-    console.log('kimak')
     event.preventDefault();
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -127,7 +130,7 @@ export default function Register() {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="confirmPassword"
+                  type="password"
                   autoComplete="current-password"
                   required
                   value={confirmPassword}
