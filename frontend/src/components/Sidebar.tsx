@@ -17,7 +17,7 @@ const user = {
 
 const Sidebar = () => {
   return (
-    <div className='flex flex-col w-60 bg-white items-center h-screen shadow-xl rounded-xl pt-10'>
+    <div className='fixed flex flex-col w-60 bg-white items-center h-screen shadow-xl rounded-xl pt-10'>
       <div className='flex flex-col w-full items-center gap-1'>
         <Image src={logo} alt='GroupedIn' className='w-20 h-20' />
         <p
