@@ -1,7 +1,6 @@
 import AddCourse from '@/components/AddCourse';
 import CourseCard from '@/components/CourseCard';
-import Sidebar from '@/components/Sidebar';
-import { Box, Grid, Stack } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
 
 const page = () => {
@@ -14,7 +13,7 @@ const page = () => {
               className='text-4xl my-4'
               style={{ fontFamily: 'MetropolisSemiBold' }}
             >
-              Course
+              Courses
             </p>
           </Box>
 

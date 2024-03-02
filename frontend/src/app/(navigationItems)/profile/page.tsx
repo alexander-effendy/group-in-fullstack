@@ -37,7 +37,6 @@ const page = () => {
           </Box>
         </Box>
       </Box>
-
     </Box>
   )
 }

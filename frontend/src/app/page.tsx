@@ -22,7 +22,6 @@ const coursesEnrolled = [
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
-
   const handleAddCourse = () => {
     setModalVisible(true);
   };
