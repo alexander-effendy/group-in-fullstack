@@ -16,7 +16,7 @@ export async function isMemberIdMatchingUid(memberId, firebaseUid) {
 }
 export async function getMemberById(id) {
   try {
-    const query = "SELECT * FROM members WHERE id = ?";
+    const query = "SELECT * FROM members WHERE member_id = ?";
     const result = await queryDatabase(query, id);
     if (result.length === 0) {
       throw new Error("Member Not Found");
@@ -24,6 +24,29 @@ export async function getMemberById(id) {
     return result[0];
   } catch (error) {
     console.error("Error fetching member:", error);
+    throw new Error(error.message);
+  }
+}
+
+export async function dbConnectMember(memberId, firebaseUid) {
+  try {
+    const query = "INSERT INTO member_firebase_mapping (member_id, firebase_uid) VALUES (?, ?)";
+    const result = await queryDatabase(query, [memberId, firebaseUid]);
+    return result;
+  } catch (error) {
+    console.error("Error connecting member:", error);
+    throw new Error(error.message);
+  }
+}
+
+export async function dbCreateMember(username) {
+  try {
+    const query = "INSERT INTO members (name) VALUES (?)";
+    const result = await queryDatabase(query, username);
+    console.log("result", result)
+    return result.insertId;
+  } catch (error) {
+    console.error("Error creating member:", error);
     throw new Error(error.message);
   }
 }

@@ -1,8 +1,20 @@
 import {
+  dbConnectMember,
+  dbCreateMember,
   dbDeleteMember,
   dbUpdateMember,
   isMemberIdMatchingUid,
 } from "../models/members.models.js";
+
+export async function createMember(username, firebaseUid) {
+  try {
+    const memberId = await dbCreateMember(username, firebaseUid);
+    dbConnectMember(memberId, firebaseUid);
+    return memberId;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
 
 // Update an existing member
 export async function updateMember(memberId, updatedData) {

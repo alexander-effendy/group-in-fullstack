@@ -1,5 +1,6 @@
 import express from "express";
 import { deleteMember, updateMember } from "../services/members.services.js";
+import { getMemberById } from "../models/members.models.js";
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
