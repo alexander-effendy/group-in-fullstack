@@ -1,5 +1,6 @@
 import express from 'express';
 import { createUser, loginUser, logoutUser } from '../services/auth.service.js';
+import { createMember } from '../services/members.services.js';
 const router = express.Router();
 
 /**
@@ -8,9 +9,11 @@ const router = express.Router();
  * @returns {Object} - The new user object.
  */
 router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
   try {
+    // TODO: check if username is unique before creating the user
     const user = await createUser(email, password);
+    await createMember(username, user.uid);
     res.status(201).send({ message: 'User created successfully', user });
   } catch (error) {
     res
@@ -43,6 +46,7 @@ router.post('/login', async (req, res) => {
 router.post('/logout', async (req, res) => {
   try {
     await logoutUser();
+    console.log('logged out');
     res.status(200).send({ message: 'Logout successful' });
   } catch (error) {
     res.status(400).send({ message: 'Logout failed', error: error.message });

@@ -6,7 +6,7 @@ const dbConfig = {
   host: '192.46.224.11',
   user: 'temp',
   password: process.env.DB_PASSWORD,
-  database: 'data',
+  database: 'GroupedIn',
 };
 
 // Create a MySQL connection pool
