@@ -33,7 +33,6 @@ export default function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log('Signup successful with user: ', userCredential.user.getIdToken());
       const token = await userCredential.user.getIdToken();
-      console.log('User token: ', token);
       localStorage.setItem('userToken', token);
       router.push('/');
     } catch (error: any) {
