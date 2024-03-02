@@ -2,12 +2,28 @@ import {
   dbConnectMember,
   dbCreateMember,
   dbDeleteMember,
+  dbGetMemberById,
+  dbGetReviewsByMemberId,
   dbUpdateMember,
-  isMemberIdMatchingUid,
+  isUserIdCreated,
 } from "../models/members.models.js";
+
+export async function getMemberById(memberId) {
+  try {
+    const member = await dbGetMemberById(memberId);
+    member.reviews = await dbGetReviewsByMemberId(memberId);
+    return member;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
 
 export async function createMember(username, firebaseUid) {
   try {
+    if (await isUserIdCreated(firebaseUid)) {
+      throw new Error("User already exists");
+    }
+
     const memberId = await dbCreateMember(username, firebaseUid);
     dbConnectMember(memberId, firebaseUid);
     return memberId;
@@ -17,14 +33,8 @@ export async function createMember(username, firebaseUid) {
 }
 
 // Update an existing member
-export async function updateMember(memberId, firebaseUid, updatedData) {
+export async function updateMember(memberId, updatedData) {
   try {
-    console.log(memberId, firebaseUid, updatedData)
-    const isMatch = await isMemberIdMatchingUid(memberId, firebaseUid);
-    if (!isMatch) {
-      throw new Error("The provided Firebase UID does not match the member ID");
-    }
-
     await dbUpdateMember(memberId, updatedData);
     return { message: "Member Updated" };
   } catch (error) {
@@ -33,13 +43,8 @@ export async function updateMember(memberId, firebaseUid, updatedData) {
 }
 
 // Delete a member
-export async function deleteMember(memberId, firebaseUid) {
+export async function deleteMember(memberId) {
   try {
-    const isMatch = await isMemberIdMatchingUid(memberId, firebaseUid);
-    if (!isMatch) {
-      throw new Error("The provided Firebase UID does not match the member ID");
-    }
-
     await dbDeleteMember(memberId);
     return { message: "Member deleted" };
   } catch (error) {
