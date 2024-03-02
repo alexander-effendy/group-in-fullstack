@@ -29,3 +29,43 @@ export async function dbGetMembersByGroupId(groupId) {
     throw new Error(error.message);
   }
 }
+
+export async function dbCreateGroup(groupData) {
+  try {
+    const query =
+      "INSERT INTO groups (group_name, group_leader, group_text, course_id) VALUES (?, ?, ?, ?)";
+    const values = [
+      groupData.group_name,
+      groupData.group_leader,
+      groupData.group_text,
+      groupData.course_id,
+    ];
+    const result = await queryDatabase(query, values);
+    return result;
+  } catch (error) {
+    console.error("Error creating group:", error);
+    throw new Error(error.message);
+  }
+}
+
+export async function dbAddMemberToGroup(groupId, memberId) {
+  try {
+    const query = "INSERT INTO group_members (group_id, member_id) VALUES (?, ?)";
+    const result = await queryDatabase(query, [groupId, memberId]);
+    return result;
+  } catch (error) {
+    console.error("Error adding member to group:", error);
+    throw new Error(error.message);
+  }
+}
+
+export async function dbDeleteGroup(groupId) {
+  try {
+    const query = "DELETE FROM groups WHERE group_id = ?";
+    const result = await queryDatabase(query, groupId);
+    return result;
+  } catch (error) {
+    console.error("Error deleting group:", error);
+    throw new Error(error.message);
+  }
+}
