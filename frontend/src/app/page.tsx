@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import GroupCard from '../components/GroupCard';
 import CourseCard from '../components/CourseCard';
 import { Box, Stack, Grid } from '@mui/material';
+import AddCourse from '@/components/AddCourse';
 
 export default function Home() {
   return (
@@ -13,6 +14,9 @@ export default function Home() {
           <p className='text-4xl underline my-4' style={{ fontFamily: 'MetropolisMedium' }}>Your Courses</p>
           <Grid container direction='row' spacing={2}>
             <Grid item xs={4} className='max-w-54'>
+              <CourseCard courseId='COMP6080' />
+            </Grid>
+            {/* <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
             </Grid>
             <Grid item xs={4} className='max-w-54'>
@@ -23,9 +27,9 @@ export default function Home() {
             </Grid>
             <Grid item xs={4} className='max-w-54'>
               <CourseCard/>
-            </Grid>
+            </Grid> */}
             <Grid item xs={4} className='max-w-54'>
-              <CourseCard/>
+              <AddCourse/>
             </Grid>
           </Grid>
         </Box>

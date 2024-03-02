@@ -13,6 +13,9 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      screens: {
+        xs: '400px',
+      },
       // Set colors as primary: #563FE7, secondary: "E0DAFE", black: '#3c3c3c and white: '#f5f5f5'
       colors: {
         primary: '#563FE7',
@@ -23,7 +26,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
 
 export default config;
