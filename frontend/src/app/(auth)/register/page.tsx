@@ -21,7 +21,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
-
+  
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -40,7 +40,6 @@ export default function Register() {
         userCredential.user.getIdToken()
       );
       const token = await userCredential.user.getIdToken();
-      console.log('User token: ', token);
       localStorage.setItem('userToken', token);
       router.push('/');
     } catch (error: any) {
