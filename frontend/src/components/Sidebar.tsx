@@ -8,6 +8,7 @@ import {
   HomeIcon,
   BookOpenIcon,
   UserGroupIcon,
+  PencilSquareIcon,
   UserIcon,
 } from '@heroicons/react/24/outline';
 import profilePic from '../assets/profilePic.jpg';
