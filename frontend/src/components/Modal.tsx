@@ -17,6 +17,7 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
       if (selectCourse === '') return;
       const response = await axiosInstanceWithAuth.get(`courses/${selectCourse}`);
       const courseData = response.data;
+      // get courseData --> make this user subscribe to the course
       setValidateCourse(true);
       setCourseAdded(true);
       setSelectCourse('');
