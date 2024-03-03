@@ -27,7 +27,6 @@ export default function Register() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      const res = await axiosInstanceWithAuth.get(`username/${username}`);
     } catch (error) {
       alert('Username already exists!');
       return;
@@ -38,23 +37,21 @@ export default function Register() {
       return;
     }
     
+    // post into firebase
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log(
-        'Signup successful with user: ',
-        userCredential.user.getIdToken()
-      );
       const token = await userCredential.user.getIdToken();
       localStorage.setItem('userToken', token);
+      await axiosInstanceWithAuth.post('members/create', {
+        username: username,
+      });
       router.push('/');
-    } catch (error: any) {
-      console.error('Signup error', error);
-      setError(true);
-      return;
+    } catch (error) {
+      console.log(error);
     }
   };
 

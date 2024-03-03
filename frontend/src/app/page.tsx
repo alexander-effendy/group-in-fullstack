@@ -45,13 +45,14 @@ export default function Home() {
   const handleFetchCourses = async () => {
     try {
       await axiosInstanceWithAuth.get(`members/profile`)
-        .then((user) => {
-          // console.log(user.courses);
+        .then((res) => {
+          console.log(res);
           if (coursesEnrolled.length === 4) {
             alert('Already 4');
           } else {
             console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
           }
+          
           setModalVisible(true);
         })
     } catch (error) {
@@ -59,15 +60,15 @@ export default function Home() {
     }
   }
 
-  const handleAddCourse = () => {
-    // check if courses already 4
-    if (coursesEnrolled.length === 4) {
-      alert('Already 4');
-    } else {
-      console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
-    }
-    setModalVisible(true);
-  };
+  // const handleAddCourse = () => {
+  //   // check if courses already 4
+  //   if (coursesEnrolled.length === 4) {
+  //     alert('Already 4');
+  //   } else {
+  //     console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
+  //   }
+  //   setModalVisible(true);
+  // };
   const router = useRouter();
   useEffect(() => {
     // This code now runs only on the client-side
