@@ -21,7 +21,7 @@ const authMiddleware = async (req, res, next) => {
 
   
   if (headerToken && headerToken.split(' ')[0] !== 'Bearer') {
-    res.status(401).send({ message: 'Invalid token' });
+    return res.status(401).send({ message: 'Invalid token' });
   }
   
   const token = headerToken.split(' ')[1];
@@ -33,10 +33,6 @@ const authMiddleware = async (req, res, next) => {
     console.error('Error verifying auth token', error);
     res.status(403).send({ message: 'Could not authorize' });
   }
-  
-  //TODO: check if user is not in the db if not then create a new member and assign it.
-  // getMemberByUserId(req.user.uid);
-
 };
 
 export default authMiddleware;

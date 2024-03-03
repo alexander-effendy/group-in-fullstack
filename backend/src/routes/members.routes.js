@@ -3,8 +3,16 @@ import { createMember, deleteMember, getMemberById, updateMember } from "../serv
 import { getMemberByUserId, isUserIdCreated } from "../models/members.models.js";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/profile", async (req, res) => {
   //TODO get user profile, groups and reviews
+  try {
+    const uid = req.user.uid;
+    const memberId = await getMemberByUserId(uid);
+    const member = await getMemberById(memberId);
+    res.status(200).send(member)
+  } catch (error) {
+    res.status(404).send({ message: "Member not found", error: error.message });
+  }
 })
 
 router.post("/create", async (req, res) => {

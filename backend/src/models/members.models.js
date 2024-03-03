@@ -1,5 +1,16 @@
 import { queryDatabase } from "../config/dbConfigs.js";
 
+export async function getMemberByName(name) {
+  try {
+    const query = "SELECT * FROM members WHERE name = ?";
+    const result = await queryDatabase(query, name);
+    return result;
+  } catch (error) {
+    console.error("Error fetching member:", error);
+    throw new Error(error.message);
+  }
+}
+
 export async function getMemberByUserId(firebaseUid) {
   try {
     const query =
