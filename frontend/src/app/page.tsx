@@ -11,11 +11,25 @@ import { useRouter } from 'next/navigation';
 import Vector1 from '@/assets/Vector-1.png';
 import Vector2 from '@/assets/Vector-2.png';
 import Image from 'next/image';
+import { axiosInstanceWithAuth } from '../api/Axios';
 
-const coursesEnrolled = [
+interface Course {
+  courseId: string;
+  courseName: string;
+}
+
+export const coursesEnrolled = [
   {
     courseId: 'COMP6080',
     courseName: 'Frontend',
+  },
+  {
+    courseId: 'COMP1511',
+    courseName: 'Backend',
+  },
+  {
+    courseId: 'COMP1511',
+    courseName: 'Backend',
   },
   {
     courseId: 'COMP1511',
@@ -25,7 +39,33 @@ const coursesEnrolled = [
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [coursesEnrolled, setCoursesEnrolled] = useState<Course[]>([]);
+
+  // fetch using axios
+  const handleFetchCourses = async () => {
+    try {
+      await axiosInstanceWithAuth.get(`members/profile`)
+        .then((user) => {
+          // console.log(user.courses);
+          if (coursesEnrolled.length === 4) {
+            alert('Already 4');
+          } else {
+            console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
+          }
+          setModalVisible(true);
+        })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleAddCourse = () => {
+    // check if courses already 4
+    if (coursesEnrolled.length === 4) {
+      alert('Already 4');
+    } else {
+      console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
+    }
     setModalVisible(true);
   };
   const router = useRouter();
@@ -76,7 +116,7 @@ export default function Home() {
               </Grid>
             ))}
             <Grid item xs={4} className='max-w-54'>
-              <Button onClick={handleAddCourse}>
+              <Button onClick={handleFetchCourses}>
                 <AddCourse />
               </Button>
             </Grid>

@@ -15,13 +15,19 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
   const handleAddCourse = async () => {
     try {
       if (selectCourse === '') return;
-      const response = await axiosInstanceWithAuth.get(`courses/${selectCourse}`);
-      console.log(response);
-      const courseData = response.data;
-      // get courseData --> plant on this user's -->
-      setValidateCourse(true);
-      setCourseAdded(true);
-      setSelectCourse('');
+      await axiosInstanceWithAuth.get(`courses/${selectCourse}`).then(() => {})
+      await axiosInstanceWithAuth.post(`/enrollment/enroll`, {
+        course_id: selectCourse,
+      })
+      .then(() => {
+        console.log('done adding person tot he course');
+        console.log(selectCourse);
+      })
+      .then(() => {
+        setSelectCourse('');
+        setValidateCourse(true);
+        setCourseAdded(true);
+      });
     } catch (error) {
       console.error(error);
       setValidateCourse(false);
