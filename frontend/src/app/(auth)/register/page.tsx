@@ -14,6 +14,8 @@ import Image from 'next/image';
 import Logo from '../../../assets/Vector.png';
 import Illustration from '../../../assets/Illustration.png';
 
+import { axiosInstanceWithAuth } from '../../../api/Axios';
+
 export default function Register() {
   const router = useRouter();
   const [username, setUsername] = useState('');
@@ -24,28 +26,32 @@ export default function Register() {
   
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+    try {
+    } catch (error) {
+      alert('Username already exists!');
+      return;
+    }
+    
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
     
+    // post into firebase
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log(
-        'Signup successful with user: ',
-        userCredential.user.getIdToken()
-      );
       const token = await userCredential.user.getIdToken();
       localStorage.setItem('userToken', token);
+      await axiosInstanceWithAuth.post('members/create', {
+        username: username,
+      });
       router.push('/');
-    } catch (error: any) {
-      console.error('Signup error', error);
-      setError(true);
-      return;
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -16,7 +16,7 @@ router.post("/enroll", async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
+// cek dia masuk course apas
 router.get("/:enrollmentId", async (req, res) => {
   try {
     const { enrollmentId } = req.params;

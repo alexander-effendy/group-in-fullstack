@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 // If you're using a specific UI library, ensure to import Box from that library.
 
-type CourseType = {
+export type CourseType = {
   code: string;
   name: string;
 };

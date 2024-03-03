@@ -20,6 +20,7 @@ router.post("/create", async (req, res) => {
   try {
     const uid = req.user.uid;
     const username = req.body.username;
+    console.log(`this is ${username}`)
     const memberId = await createMember(username, uid);
     res.status(201).send({ message: "Member created", memberId });
   } catch (error) {

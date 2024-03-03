@@ -25,7 +25,7 @@ export async function getMemberById(memberId) {
 
 export async function createMember(username, firebaseUid) {
   try {
-    if (getMemberByName().length > 0) {
+    if (getMemberByName(username).length > 0) {
       throw new Error("Username already exists");
     }
 

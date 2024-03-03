@@ -5,17 +5,31 @@ import GroupCard from '../components/GroupCard';
 import CourseCard from '../components/CourseCard';
 import { Box, Stack, Grid, Button } from '@mui/material';
 import AddCourse from '@/components/AddCourse';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 import { useRouter } from 'next/navigation';
 import Vector1 from '@/assets/Vector-1.png';
 import Vector2 from '@/assets/Vector-2.png';
 import Image from 'next/image';
+import { axiosInstanceWithAuth } from '../api/Axios';
 
-const coursesEnrolled = [
+interface Course {
+  courseId: string;
+  courseName: string;
+}
+
+export const coursesEnrolled = [
   {
     courseId: 'COMP6080',
     courseName: 'Frontend',
+  },
+  {
+    courseId: 'COMP1511',
+    courseName: 'Backend',
+  },
+  {
+    courseId: 'COMP1511',
+    courseName: 'Backend',
   },
   {
     courseId: 'COMP1511',
@@ -25,15 +39,50 @@ const coursesEnrolled = [
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
-  const handleAddCourse = () => {
-    setModalVisible(true);
-  };
-  const router = useRouter();
-  if (!localStorage.getItem('userToken')) {
-    router.push('/signin');
-  } else {
-    router.push('/');
+  const [coursesEnrolled, setCoursesEnrolled] = useState<Course[]>([]);
+
+  // fetch using axios
+  const handleFetchCourses = async () => {
+    try {
+      await axiosInstanceWithAuth.get(`members/profile`)
+        .then((res) => {
+          console.log(res);
+          if (coursesEnrolled.length === 4) {
+            alert('Already 4');
+          } else {
+            console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
+          }
+          
+          setModalVisible(true);
+        })
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  // const handleAddCourse = () => {
+  //   // check if courses already 4
+  //   if (coursesEnrolled.length === 4) {
+  //     alert('Already 4');
+  //   } else {
+  //     console.log(`There are currently ${coursesEnrolled.length} courses enrolled.`);
+  //   }
+  //   setModalVisible(true);
+  // };
+  const router = useRouter();
+  useEffect(() => {
+    // This code now runs only on the client-side
+    if (!localStorage.getItem('userToken')) {
+      router.push('/signin');
+    } else {
+      router.push('/');
+    }
+  }, [router]);
+  // if (!localStorage.getItem('userToken')) {
+  //   router.push('/signin');
+  // } else {
+  //   router.push('/');
+  // }
 
   return (
     <div className='flex'>
@@ -68,7 +117,7 @@ export default function Home() {
               </Grid>
             ))}
             <Grid item xs={4} className='max-w-54'>
-              <Button onClick={handleAddCourse}>
+              <Button onClick={handleFetchCourses}>
                 <AddCourse />
               </Button>
             </Grid>
