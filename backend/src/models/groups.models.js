@@ -33,12 +33,15 @@ export async function dbGetMembersByGroupId(groupId) {
 export async function dbCreateGroup(groupData) {
   try {
     const query =
-      "INSERT INTO groups (group_name, group_leader, group_text, course_id) VALUES (?, ?, ?, ?)";
+      "INSERT INTO groups (group_name, group_leader, group_text, course_id, max_members) VALUES (?, ?, ?, ?, ?)";
+    const { group_name, group_leader, group_text, course_id, max_members } =
+      groupData;
     const values = [
-      groupData.group_name,
-      groupData.group_leader,
-      groupData.group_text,
-      groupData.course_id,
+      group_name,
+      group_leader,
+      group_text,
+      course_id,
+      max_members,
     ];
     const result = await queryDatabase(query, values);
     return result;
@@ -50,7 +53,8 @@ export async function dbCreateGroup(groupData) {
 
 export async function dbAddMemberToGroup(groupId, memberId) {
   try {
-    const query = "INSERT INTO group_members (group_id, member_id) VALUES (?, ?)";
+    const query =
+      "INSERT INTO group_members (group_id, member_id) VALUES (?, ?)";
     const result = await queryDatabase(query, [groupId, memberId]);
     return result;
   } catch (error) {

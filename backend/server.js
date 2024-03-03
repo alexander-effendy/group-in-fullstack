@@ -8,6 +8,8 @@ import groupPosts from "./src/routes/group_posts.routes.js";
 import groupRequests from "./src/routes/group_requests.routes.js";
 import groups from "./src/routes/groups.routes.js";
 import courses from "./src/routes/courses.routes.js";
+import reactions from "./src/routes/reactions.routes.js";
+import enrollment from "./src/routes/enrollment.routes.js";
 import authMiddleware from "./src/middlewares/auth.middleware.js";
 
 // Create an Express application
@@ -26,7 +28,8 @@ app.use("/group_posts", authMiddleware, groupPosts);
 app.use("/groups", authMiddleware, groups);
 app.use("/courses", authMiddleware, courses);
 app.use("/group_requests", authMiddleware, groupRequests);
-
+aapp.use("/reactions", authMiddleware, reactions);
+app.use("/enrollment", authMiddleware, enrollment);
 app.use(express.static("public"));
 
 // Make the application listen on the specified port

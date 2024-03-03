@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllCourses, getGroupsByCourseId } from "../services/courses.services.js";
+import { getAllCourses, getCourseById } from "../services/courses.services.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -14,10 +14,10 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     console.log('init')
-    const member = await dbGetGroupsByCourseId(req.params.id);
-    res.status(200).send(member);
+    const course = await getCourseById(req.params.id);
+    res.status(200).send(course);
   } catch (error) {
-    res.status(404).send({ message: "Member not found", error: error.message });
+    res.status(404).send({error: error.message });
   }
 });
 
