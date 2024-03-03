@@ -5,7 +5,7 @@ import GroupCard from '../components/GroupCard';
 import CourseCard from '../components/CourseCard';
 import { Box, Stack, Grid, Button } from '@mui/material';
 import AddCourse from '@/components/AddCourse';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 import { useRouter } from 'next/navigation';
 import Vector1 from '@/assets/Vector-1.png';
@@ -29,11 +29,19 @@ export default function Home() {
     setModalVisible(true);
   };
   const router = useRouter();
-  if (!localStorage.getItem('userToken')) {
-    router.push('/signin');
-  } else {
-    router.push('/');
-  }
+  useEffect(() => {
+    // This code now runs only on the client-side
+    if (!localStorage.getItem('userToken')) {
+      router.push('/signin');
+    } else {
+      router.push('/');
+    }
+  }, [router]);
+  // if (!localStorage.getItem('userToken')) {
+  //   router.push('/signin');
+  // } else {
+  //   router.push('/');
+  // }
 
   return (
     <div className='flex'>
