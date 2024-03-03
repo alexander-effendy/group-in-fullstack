@@ -15,14 +15,6 @@ const page = () => {
       </Box>
       <Box className=''>
         <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
-        <ApplicationCard/>
       </Box>
     </Box>
   )
