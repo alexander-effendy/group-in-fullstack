@@ -46,7 +46,6 @@ export async function dbGetCoursesByMemberId(memberId) {
   }
 }
 
-
 export async function dbUnenrollMemberFromCourse(courseId, memberId) {
   try {
     const query = `
