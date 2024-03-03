@@ -4,7 +4,19 @@ import {
   deleteGroup,
   getGroupById,
 } from "../services/groups.services.js";
+import { dbGetGroupsByMemberId } from "../models/groups.models.js";
 const router = express.Router();
+
+// router.get("/", async (req, res) => {
+//   try {
+//     const uid = req.user.uid;
+//     const member = await getMemberByUserId(uid);
+//     const groups = await dbGetGroupsByMemberId;
+//     res.status(200).send(groups);
+//   } catch (error) {
+//     res.status(404).send({ message: "Groups not found", error: error.message });
+//   }
+// })
 
 router.get("/:id", async (req, res) => {
   try {

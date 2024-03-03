@@ -73,3 +73,19 @@ export async function dbDeleteGroup(groupId) {
     throw new Error(error.message);
   }
 }
+
+export async function dbGetGroupsByMemberId(memberId) {
+  try {
+    const query = `
+      SELECT groups.*
+      FROM group_members
+      INNER JOIN groups ON group_members.group_id = groups.group_id
+      WHERE group_members.member_id = ?
+    `;
+    const result = await queryDatabase(query, memberId);
+    return result;
+  } catch (error) {
+    console.error("Error getting group by member ID:", error);
+    throw new Error(error.message);
+  }
+}
