@@ -7,6 +7,7 @@ router.get("/profile", async (req, res) => {
   //TODO get user profile, groups and reviews
   try {
     const uid = req.user.uid;
+    console.log(uid)
     const memberId = await getMemberByUserId(uid);
     const member = await getMemberById(memberId);
     res.status(200).send(member)

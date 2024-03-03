@@ -1,7 +1,5 @@
 import React from 'react';
-// import Sidebar from '../../components/Sidebar';
 import GroupCard from '@/components/GroupCard';
-// import CourseCard from '../../components/CourseCard';
 import { Box, Grid } from '@mui/material';
 
 export default function page() {
