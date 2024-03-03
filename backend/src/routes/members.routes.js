@@ -10,7 +10,8 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const uid = req.user.uid;
-    const memberId = await createMember(req.body, uid);
+    const username = req.body.username;
+    const memberId = await createMember(username, uid);
     res.status(201).send({ message: "Member created", memberId });
   } catch (error) {
     res.status(400).send({ message: "Failed to create member", error: error.message });
