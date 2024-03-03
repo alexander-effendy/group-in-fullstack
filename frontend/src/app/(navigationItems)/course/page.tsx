@@ -17,7 +17,7 @@ const exampleData = [
   },
 ];
 
-const page = () => {
+const page = (): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
   const handleAddCourse = () => {
     setModalVisible(true);
