@@ -2,14 +2,14 @@ import express from "express";
 import { getAllCourses, getCourseById } from "../services/courses.services.js";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  try {
-    const courses = await getAllCourses();
-    res.status(200).send(courses);
-  } catch (error) {
-    res.status(404).send({ message: "Courses not found", error: error.message });
-  }
-})
+// router.get("/", async (req, res) => {
+//   try {
+//     const courses = await getAllCourses();
+//     res.status(200).send(courses);
+//   } catch (error) {
+//     res.status(404).send({ message: "Courses not found", error: error.message });
+//   }
+// })
 
 router.get("/:id", async (req, res) => {
   try {
