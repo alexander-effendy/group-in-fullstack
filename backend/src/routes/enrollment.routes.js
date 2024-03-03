@@ -6,10 +6,8 @@ const router = express.Router();
 
 router.post("/enroll", async (req, res) => {
   try {
-    console.log("wassup motherfucker--------------------------------------------------------------")
     const { course_id } = req.body;
     const memberId = await getMemberByUserId(req.user.uid);
-    console.log(course_id, memberId, 'yetttttttttttttttttt');
     const result = await dbEnrollMemberInCourse(course_id, memberId);
 
     res.status(201).json(result);
