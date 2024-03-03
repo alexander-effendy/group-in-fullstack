@@ -4,7 +4,7 @@ import { axiosInstanceWithAuth } from "@/api/Axios";
 import EditProfileModal from "@/components/EditProfileModal";
 import ReviewCard from "@/components/ReviewCard";
 import { Box, LinearProgress, Rating, Stack } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 interface Review {
   review_id: number;
@@ -31,7 +31,11 @@ interface Member {
   courses: Course[];
 }
 
-const page = ({ id }: { id: number }) => {
+interface PageProps {
+  id: number
+}
+
+const page: FC<PageProps> = ({ id }):JSX.Element => {
   const [data, setData] = useState({} as Member);
   const [loading, setLoading] = useState(true);
   const [rating, setRating] = useState(0);
