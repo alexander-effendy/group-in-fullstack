@@ -31,11 +31,7 @@ interface Member {
   courses: Course[];
 }
 
-interface PageProps {
-  id: number
-}
-
-const page: FC<PageProps> = ({ id }):JSX.Element => {
+const page = () => {
   const [data, setData] = useState({} as Member);
   const [loading, setLoading] = useState(true);
   const [rating, setRating] = useState(0);
