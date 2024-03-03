@@ -1,4 +1,5 @@
 import { dbGetCoursesByMemberId } from "../models/enrollment.models.js";
+import { dbGetGroupsByMemberId } from "../models/groups.models.js";
 import {
   dbConnectMember,
   dbCreateMember,
@@ -15,6 +16,7 @@ export async function getMemberById(memberId) {
     const member = await dbGetMemberById(memberId);
     member.reviews = await dbGetReviewsByMemberId(memberId);
     member.courses = await dbGetCoursesByMemberId(memberId);
+    member.groups = await dbGetGroupsByMemberId(memberId);
     return member;
   } catch (error) {
     throw new Error(error.message);
