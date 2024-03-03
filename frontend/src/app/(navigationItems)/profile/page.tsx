@@ -42,20 +42,23 @@ const page = () => {
             <Box className='h-5/6 rounded-lg bg-whiteCustom mr-4 p-4 shadow-sm shadow-slate-500'>
               <p className='text-xs' style={{ fontFamily: 'MetropolisRegular'}}>Insert student bio here</p>
             </Box>
-          </Box>
-          <Box className='w-2/3'>
-            <p className='text-2xl mb-2' style={{ fontFamily: 'MetropolisSemiBold' }}>Reviews</p>
-            <Box className='h-5/6 mr-2 overflow-x-hidden overflow-y-auto'>
-              <ReviewCard id={1000}/>
-              <ReviewCard id={1000}/>
-              <ReviewCard id={1000}/>
-              <ReviewCard id={1000}/>
+            <Box className='w-2/3'>
+              <p className='text-2xl mb-2' style={{ fontFamily: 'MetropolisSemiBold' }}
+              >
+                Reviews
+              </p>
+              <Box className='h-5/6 mr-2 overflow-x-hidden overflow-y-auto'>
+                <ReviewCard id={1000} />
+                <ReviewCard id={1000} />
+                <ReviewCard id={1000} />
+                <ReviewCard id={1000} />
+              </Box>
             </Box>
           </Box>
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default page
+export default page;

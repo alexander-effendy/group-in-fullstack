@@ -1,3 +1,4 @@
+import { dbGetCoursesByMemberId } from "../models/enrollment.models.js";
 import {
   dbConnectMember,
   dbCreateMember,
@@ -5,6 +6,7 @@ import {
   dbGetMemberById,
   dbGetReviewsByMemberId,
   dbUpdateMember,
+  getMemberByName,
   isUserIdCreated,
 } from "../models/members.models.js";
 
@@ -12,6 +14,7 @@ export async function getMemberById(memberId) {
   try {
     const member = await dbGetMemberById(memberId);
     member.reviews = await dbGetReviewsByMemberId(memberId);
+    member.courses = await dbGetCoursesByMemberId(memberId);
     return member;
   } catch (error) {
     throw new Error(error.message);
@@ -20,6 +23,10 @@ export async function getMemberById(memberId) {
 
 export async function createMember(username, firebaseUid) {
   try {
+    if (getMemberByName().length > 0) {
+      throw new Error("Username already exists");
+    }
+
     if (await isUserIdCreated(firebaseUid)) {
       throw new Error("User already exists");
     }
