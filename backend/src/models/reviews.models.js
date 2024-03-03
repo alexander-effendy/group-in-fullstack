@@ -60,11 +60,12 @@ export async function dbDeleteReview(reviewId) {
 
 export async function getReview(reviewId) {
   const query = `
-  SELECT reviews.*, 
+  SELECT reviews.*, members.name as reviewer_name,
     SUM(CASE WHEN reaction_type = 'like' THEN 1 ELSE 0 END) as likes,
     SUM(CASE WHEN reaction_type = 'dislike' THEN 1 ELSE 0 END) as dislikes
   FROM reviews 
   LEFT JOIN review_reactions ON reviews.review_id = review_reactions.review_id
+  INNER JOIN members ON reviews.reviewer_id = members.member_id
   WHERE reviews.review_id = ?
   GROUP BY reviews.review_id
   `;

@@ -1,18 +1,46 @@
-import { Box, Stack } from '@mui/material';
-import React, { FC } from 'react';
+import { Box, LinearProgress, Stack } from '@mui/material';
+import React, { FC, useEffect, useState } from 'react';
 import Rating from '@mui/material/Rating';
+import { axiosInstanceWithAuth } from '@/api/Axios';
 
 interface ReviewCardProps {
   id: number
 }
 
+interface Review {
+  review_id: number;
+  reviewer_id: number;
+  rating: number;
+  comment: string;
+  reviewee_id: number;
+  likes: number;
+  dislikes: number;
+  reviewer_name: string;
+};
+
 const ReviewCard: FC<ReviewCardProps> = ({ id }) : JSX.Element => {
   const reviewer = 'Aidan Wibrata';
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({} as Review);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axiosInstanceWithAuth.get(`/reviews/${id}`);
+      const result = response.data.review as Review;
+      setData(result);
+      console.log(result)
+      setLoading(false);
+    };
+    
+    setInterval(fetchData, 100);
+  }, [])
+
   return (
+    loading ? <LinearProgress /> :
     <Box className='rounded-lg bg-whiteCustom pl-4 pr-4 py-2 mb-3 shadow-sm shadow-slate-500'>
-      <p className='text-lg' style={{ fontFamily: 'MetropolisMedium '}}>{reviewer}</p>
-      <Rating defaultValue={2.5} precision={0.1} size='medium' readOnly/>
-      <p className='text-xs' style={{ fontFamily: 'MetropolisRegular' }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi numquam qui, temporibus beatae, officia enim repellendus odio totam quidem ipsum debitis amet voluptate velit provident nisi sed consectetur distinctio iusto.</p>
+      <p className='text-lg' style={{ fontFamily: 'MetropolisMedium '}}>{data.reviewer_name}</p>
+      <Rating value={data.rating} defaultValue={2.5} precision={0.1} size='medium' readOnly/>
+      <p className='text-xs' style={{ fontFamily: 'MetropolisRegular' }}>{data.comment}</p>
       <Box className='flex justify-end'>
         <Stack className='mt-2' direction="row" spacing={1}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">

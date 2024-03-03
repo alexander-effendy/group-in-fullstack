@@ -1,8 +1,10 @@
 'use client';
 
+import { axiosInstanceWithAuth } from '@/api/Axios';
 import { Dialog, Transition } from '@headlessui/react'
 import { Box, MenuItem, Select, TextField } from '@mui/material';
-import { Fragment, } from 'react'
+import { useRouter } from 'next/router';
+import { Fragment, useState, } from 'react'
 
 interface EditProfileProps {
   isOpen: boolean;
@@ -11,9 +13,12 @@ interface EditProfileProps {
 
 const EditProfileModal: React.FC<EditProfileProps> = ({ isOpen, closeModal }) => {
   const handlePost = () => {
-    console.log('post!');
+    axiosInstanceWithAuth.put('/members/update', {member_bio: bio});
     closeModal();
   }
+
+  const [bio, setBio] = useState('');
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -54,9 +59,10 @@ const EditProfileModal: React.FC<EditProfileProps> = ({ isOpen, closeModal }) =>
                   </Dialog.Title>
                   <Box className='mt-4 w-full'>
                     <TextField
-                      placeholder="Group Description"
+                      placeholder="Your Bio"
                       multiline
                       className='w-full'
+                      onChange={(e) => setBio(e.target.value)}
                     />
                   </Box>
                   <button

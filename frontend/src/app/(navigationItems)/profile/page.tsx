@@ -1,11 +1,56 @@
-"use client";
+"use client"
 
+import { axiosInstanceWithAuth } from '@/api/Axios';
 import EditProfileModal from '@/components/EditProfileModal';
-import ReviewCard from '@/components/ReviewCard'
-import { Box, Rating, Stack } from '@mui/material'
-import React, { useState } from 'react'
+import ReviewCard from '@/components/ReviewCard';
+import { Box, LinearProgress, Rating, Stack } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
-const page = () => {
+interface Review {
+  review_id: number;
+  reviewer_id: number;
+  rating: number;
+  comment: string;
+  reviewee_id: number;
+  reviewer_name: string;
+  likes: number;
+  dislikes: number;
+}
+
+interface Course {
+  course_id: string;
+  title: string;
+  description: string | null;
+}
+
+interface Member {
+  member_id: number;
+  name: string;
+  member_bio: string | null;
+  reviews: Review[];
+  courses: Course[];
+}
+
+
+const page = ({id}: {id: number}) => {
+  const [data, setData] = useState({} as Member);
+  const [loading, setLoading] = useState(true);
+  const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axiosInstanceWithAuth.get(`/members/profile`);
+      const result = response.data as Member;
+      const totalRating = result.reviews.reduce((sum, review) => sum + review.rating, 0);
+      const averageRating = totalRating / result.reviews.length;
+      setData(result);
+      setLoading(false);
+      setRating(averageRating)
+    };
+
+    fetchData();
+  }, [])
+
   const gradientStyle = {
     backgroundColor: 'rgb(86,63,231)',
     background: 'linear-gradient(90deg, rgba(86,63,231,1) 0%, rgba(149,71,254,1) 100%)',
@@ -14,7 +59,9 @@ const page = () => {
   const handleEditProfile = () => {
     setModalVisible(true);
   }
+
   return (
+    loading ? <LinearProgress /> :
     <Box className='overflow-hidden'>
       <EditProfileModal isOpen={modalVisible} closeModal={() => setModalVisible(false)}/>
       <Box className='h-28 fixed w-full -z-10' sx={gradientStyle}>
@@ -24,7 +71,7 @@ const page = () => {
           <Stack direction='row' spacing={3}>
             <Box>
               <p className='text-4xl mt-4 text-white' style={{ fontFamily: 'MetropolisSemiBold'}}>Your Profile</p>
-              <p className='text-xs text-white' style={{ fontFamily: 'MetropolisRegular'}}>Your Full Name</p>
+              <p className='text-xs text-white' style={{ fontFamily: 'MetropolisRegular'}}>{data.name}</p>
             </Box>
             <Box className='flex items-center' onClick={handleEditProfile}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FFFFFF" className="w-6 h-6 hover:stroke-slate-400 cursor-pointer">
@@ -33,14 +80,14 @@ const page = () => {
             </Box>
           </Stack>
           <Box className='mt-3'>
-            <Rating defaultValue={2.5} precision={0.1} size='large' readOnly/>     
+            <Rating value={rating} defaultValue={2.5} precision={0.1} size='large' readOnly/>     
           </Box>
         </Box>
         <Box className='flex h-5/6 mt-6 '>
           <Box className='w-1/3'>
             <p className='text-2xl mb-2' style={{ fontFamily: 'MetropolisSemiBold' }}>Student Bio</p>
             <Box className='h-5/6 rounded-lg bg-whiteCustom mr-4 p-4 shadow-sm shadow-slate-500'>
-              <p className='text-xs' style={{ fontFamily: 'MetropolisRegular'}}>Insert student bio here</p>
+              <p className='text-xs' style={{ fontFamily: 'MetropolisRegular'}}>{data.member_bio}</p>
             </Box>
           </Box>
           <Box className='w-2/3'>
@@ -49,10 +96,9 @@ const page = () => {
               Reviews
             </p>
             <Box className='h-5/6 mr-2 overflow-x-hidden overflow-y-auto'>
-              <ReviewCard id={1000} />
-              <ReviewCard id={1000} />
-              <ReviewCard id={1000} />
-              <ReviewCard id={1000} />
+              {data.reviews?.map((review) => (
+                <ReviewCard key={review.review_id} id={review.review_id} />
+              ))}
             </Box>
           </Box>
         </Box>
