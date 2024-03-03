@@ -1,4 +1,3 @@
-import { dbGetCoursesByMemberId } from "../models/enrollment.models.js";
 import {
   dbConnectMember,
   dbCreateMember,
