@@ -1,8 +1,50 @@
+"use client"
+
+import { axiosInstanceWithAuth } from '@/api/Axios';
 import ReviewCard from '@/components/ReviewCard';
 import { Box, Rating, Stack } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const page = () => {
+interface Review {
+  review_id: number;
+  reviewer_id: number;
+  rating: number;
+  comment: string;
+  reviewee_id: number;
+  reviewer_name: string;
+  likes: number;
+  dislikes: number;
+}
+
+interface Course {
+  course_id: string;
+  title: string;
+  description: string | null;
+}
+
+interface Member {
+  member_id: number;
+  name: string;
+  member_bio: string | null;
+  reviews: Review[];
+  courses: Course[];
+}
+
+
+const page = ({id}: {id: number}) => {
+  const [data, setData] = useState({} as Member);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axiosInstanceWithAuth.get(`/members/profile`);
+      const result = response.data as Member;
+      setData(result);
+    };
+
+    fetchData();
+  }, [])
+
+
   return (
     <Box className='overflow-hidden'>
       <Box className='h-36 fixed w-full z-10 bg-gradient-to-r from-primary to-[#9747FF] p-10'>
@@ -16,7 +58,7 @@ const page = () => {
           className='text-xs text-white'
           style={{ fontFamily: 'MetropolisRegular' }}
         >
-          Your Full Name
+          {data.name}
         </p>
       </Box>
       <Box className='p-8 h-screen box-border mt-36'>

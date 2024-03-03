@@ -1,13 +1,28 @@
 import { Box, Stack } from '@mui/material';
 import React, { FC } from 'react';
 import Rating from '@mui/material/Rating';
+import { axiosInstanceWithAuth } from '@/api/Axios';
 
 interface ReviewCardProps {
   id: number
 }
 
+interface Review {
+  review_id: number;
+  reviewer_id: number;
+  rating: number;
+  comment: string;
+  reviewee_id: number;
+  likes: number;
+  dislikes: number;
+};
+
 const ReviewCard: FC<ReviewCardProps> = ({ id }) : JSX.Element => {
   const reviewer = 'Aidan Wibrata';
+
+  // const response = axiosInstanceWithAuth.get(`/review/${id}`);
+  // const result = response.data as Review;
+
   return (
     <Box className='rounded-lg bg-whiteCustom pl-4 pr-4 py-2 mb-3 shadow-sm shadow-slate-500'>
       <p className='text-lg' style={{ fontFamily: 'MetropolisMedium '}}>{reviewer}</p>
