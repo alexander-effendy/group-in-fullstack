@@ -28,7 +28,7 @@ app.use("/group_posts", authMiddleware, groupPosts);
 app.use("/groups", authMiddleware, groups);
 app.use("/courses", authMiddleware, courses);
 app.use("/group_requests", authMiddleware, groupRequests);
-aapp.use("/reactions", authMiddleware, reactions);
+app.use("/reactions", authMiddleware, reactions);
 app.use("/enrollment", authMiddleware, enrollment);
 app.use(express.static("public"));
 
