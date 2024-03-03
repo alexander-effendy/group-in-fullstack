@@ -1,12 +1,12 @@
 import { queryDatabase } from "../config/dbConfigs.js";
 
-export async function dbCreateGroupRequest(groupId, memberId) {
+export async function dbCreateGroupRequest(groupId, memberId, description) {
     try {
       const query = `
-        INSERT INTO group_requests (group_id, member_id)
-        VALUES (?, ?)`;
+        INSERT INTO group_requests (group_id, member_id, description)
+        VALUES (?, ?, ?)`;
       
-      const result = await queryDatabase(query, [groupId, memberId]);
+      const result = await queryDatabase(query, [groupId, memberId, description]);
   
       return { request_id: result.insertId, status: "pending", message: "Group request added successfully" };
     } catch (error) {

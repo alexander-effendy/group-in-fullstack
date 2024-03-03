@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.post("/create", async (req, res) => {
   try {
-    const { group_id } = req.body;
+    const { group_id, description } = req.body;
     const member_id = await getMemberByUserId(req.user.uid);
     console.log('kimakkkkkk', group_id, member_id);
-    const result = await dbCreateGroupRequest(group_id, member_id);
+    const result = await dbCreateGroupRequest(group_id, member_id, description);
 
     res.status(201).json(result);
   } catch (error) {
