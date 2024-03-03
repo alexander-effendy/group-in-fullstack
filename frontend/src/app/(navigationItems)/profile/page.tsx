@@ -31,7 +31,7 @@ interface Member {
   courses: Course[];
 }
 
-const page = () => {
+const Page = () => {
   const [data, setData] = useState({} as Member);
   const [loading, setLoading] = useState(true);
   const [rating, setRating] = useState(0);
@@ -181,4 +181,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -5,7 +5,7 @@ import ReviewModal from '@/components/ReviewModal';
 import { Box, Button, Rating } from '@mui/material'
 import React, { useState } from 'react'
 
-const page = ({ params } : any) => {
+const Page = ({ params } : any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const handleCreateReview = () => {
     setModalVisible(true);
@@ -46,4 +46,4 @@ const page = ({ params } : any) => {
   )
 }
 
-export default page
+export default Page

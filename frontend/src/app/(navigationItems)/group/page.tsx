@@ -13,7 +13,7 @@ interface Group {
   max_members: number;
 }
 
-export default function page() {
+export default function Page() {
   const [data, setData] = useState([] as Group[]);
   const [loading, setLoading] = useState(true);
 
