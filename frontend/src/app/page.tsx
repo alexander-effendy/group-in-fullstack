@@ -130,7 +130,7 @@ export default function Home() {
             Your Groups
           </p>
           <Grid container direction='row' spacing={2}>
-            <Grid item xs={4} className='max-w-54'>
+            {/* <Grid item xs={4} className='max-w-54'>
               <GroupCard />
             </Grid>
             <Grid item xs={4} className='max-w-54'>
@@ -144,7 +144,7 @@ export default function Home() {
             </Grid>
             <Grid item xs={4} className='max-w-54'>
               <GroupCard />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
       </Box>

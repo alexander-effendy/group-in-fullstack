@@ -64,22 +64,23 @@ export default function Register() {
         <Image
           src={Illustration}
           alt='Your Company'
-          style={{ height: '100vh' }}
+          // style={{ height: '100vh' }}
+          className='scale-0.9'
         />
       </div>
-      <div className='flex min-h-full lg:w-2/5 w-full flex-col justify-center px-6 py-12 lg:px-8'>
+      <div className='flex min-h-full lg:w-2/5 w-full flex-col justify-center px-6 py-6 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Image
             className='mx-auto h-20 w-auto'
             src={Logo}
             alt='Your Company'
           />
-          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+          <h2 className='mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
             Create Account
           </h2>
         </div>
 
-        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+        <div className='mt-5 sm:mx-auto sm:w-full sm:max-w-sm'>
           <form className='space-y-6' action='#' method='POST'>
             <div>
               <label
