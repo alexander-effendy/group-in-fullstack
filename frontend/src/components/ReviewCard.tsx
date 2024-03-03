@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, LinearProgress, Stack } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import Rating from '@mui/material/Rating';

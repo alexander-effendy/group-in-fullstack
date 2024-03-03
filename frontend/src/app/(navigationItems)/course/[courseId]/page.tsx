@@ -5,7 +5,7 @@ import PostModal from '@/components/PostModal';
 import { Box, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const Page = ({ params }: any): JSX.Element => {
+const page = ({ params }: any): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
   const handleNewPost = () => {
     setModalVisible(true);
@@ -49,4 +49,4 @@ const Page = ({ params }: any): JSX.Element => {
   );
 };
 
-export default Page;
+export default page;

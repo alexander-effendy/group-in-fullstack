@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 // If you're using a specific UI library, ensure to import Box from that library.
 
@@ -12,17 +13,19 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
-    <div className='w-52 h-48 rounded-lg overflow-hidden shadow-sm shadow-slate-500 hover:cursor-pointer'>
-      <div className='h-2/6 hover:h-1/2 transition-all ease-in-out bg-primary'></div>
-      <div className='p-2'>
-        <p className='text-2xl' style={{ fontFamily: 'MetropolisSemiBold' }}>
-          {course.code} {/* Access code from the course object */}
-        </p>
-        <p className='text-xs' style={{ fontFamily: 'MetropolisRegular' }}>
-          {course.name} {/* Access name from the course object */}
-        </p>
+    <Link href={`/course/1000`}>
+      <div className='w-52 h-48 rounded-lg overflow-hidden shadow-sm shadow-slate-500 hover:cursor-pointer'>
+        <div className='h-2/6 hover:h-1/2 transition-all ease-in-out bg-primary'></div>
+        <div className='p-2'>
+          <p className='text-2xl' style={{ fontFamily: 'MetropolisSemiBold' }}>
+            {course.code} {/* Access code from the course object */}
+          </p>
+          <p className='text-xs' style={{ fontFamily: 'MetropolisRegular' }}>
+            {course.name} {/* Access name from the course object */}
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
