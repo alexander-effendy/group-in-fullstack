@@ -28,7 +28,7 @@ export default function Register() {
       alert('Passwords do not match!');
       return;
     }
-
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,

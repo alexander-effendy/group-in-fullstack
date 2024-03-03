@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, useEffect } from 'react'
+import { axiosInstanceWithAuth } from '../api/Axios';
 
 interface MyModalProps {
   isOpen: boolean;
@@ -8,34 +9,16 @@ interface MyModalProps {
 
 const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
   const [selectCourse, setSelectCourse] = useState('');
+  const [courseAdded, setCourseAdded] = useState(false);
   const [validateCourse, setValidateCourse] = useState(true);
 
-  // find a course
-  // if course does not exist then validateCourse false
-  const handleFindCourse = async () => {
+  const handleAddCourse = async () => {
     try {
       if (selectCourse === '') return;
-      const response = await fetch(`http://localhost:5005/courses/${selectCourse}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`, // Assuming the token is stored in localStorage
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      if (!response.ok) {
-        throw new Error('Course not found or unauthorized'); // Adjust based on actual API response
-      }
-  
-      const courseData = await response.json();
-      console.log(courseData);
-      // pass courseData to a course card
-      closeModal();
-      
-
-      // courseData -> pass details to CourseCard component --> add CourseCard and details to this user
-      alert('course found');
+      const response = await axiosInstanceWithAuth.get(`courses/${selectCourse}`);
+      const courseData = response.data;
       setValidateCourse(true);
+      setCourseAdded(true);
       setSelectCourse('');
     } catch (error) {
       console.error(error);
@@ -45,7 +28,76 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
 
   return (
     <>
-      <Transition appear show={isOpen} as={Fragment}>
+      {courseAdded && 
+        <>
+          <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel 
+                  className="flex flex-col w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all" 
+                  style={{ maxHeight: '80vh', overflowY: 'auto' }}
+                >
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                    onClick={closeModal}
+                  >
+                    Congratulations!
+                  </Dialog.Title>
+
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      You have been added to the course!
+                    </p>
+                  </div>
+                  
+                  <div className="mt-4 gap-3 flex justify-between">
+                    <div></div>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => {
+                        setCourseAdded(false);
+                        closeModal();
+                      }}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+        </>
+      }
+
+
+
+      {!courseAdded && <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -98,17 +150,24 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
                       }}
                       className="mt-1 mb-0 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
+                    {courseAdded && <div className="text-green-500">You have been added to {selectCourse}</div>}
                     {!validateCourse && <div className="text-red-500">The course {selectCourse} does not exist.</div>}
                   </div>
-
-                  <div className="mt-4 gap-3 flex">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={handleFindCourse}
-                    >
-                      Done
+                  
+                  <div className="mt-4 gap-3 flex justify-between">
+                    <div>
+                      
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={handleAddCourse}
+                      >
+                        Confirm
                     </button>
+
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -116,6 +175,7 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
                     >
                       Close
                     </button>
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -123,8 +183,11 @@ const MyModal: React.FC<MyModalProps> = ({ isOpen, closeModal }) => {
           </div>
         </Dialog>
       </Transition>
+      } 
     </>
   )
 }
 
 export default MyModal;
+
+
