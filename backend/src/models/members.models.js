@@ -1,10 +1,21 @@
 import { queryDatabase } from "../config/dbConfigs.js";
 
+export async function getMemberByName(name) {
+  try {
+    const query = "SELECT * FROM members WHERE name = ?";
+    const result = await queryDatabase(query, name);
+    return result;
+  } catch (error) {
+    console.error("Error fetching member:", error);
+    throw new Error(error.message);
+  }
+}
+
 export async function getMemberByUserId(firebaseUid) {
   try {
     const query =
       "SELECT member_id FROM member_firebase_mapping WHERE firebase_uid = ?";
-    console.log("firebaseUid", firebaseUid);
+    // console.log("firebaseUid", firebaseUid);
     const result = await queryDatabase(query, firebaseUid);
     if (result.length === 0) {
       throw new Error("No mapping found for this Firebase UID");

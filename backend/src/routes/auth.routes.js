@@ -1,6 +1,7 @@
 import express from 'express';
 import { createUser, loginUser, logoutUser } from '../services/auth.service.js';
 import { createMember } from '../services/members.services.js';
+import { getMemberByName } from '../models/members.models.js';
 const router = express.Router();
 
 /**
@@ -11,7 +12,6 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    // TODO: check if username is unique before creating the user
     const user = await createUser(email, password);
     await createMember(username, user.uid);
     res.status(201).send({ message: 'User created successfully', user });
@@ -52,6 +52,15 @@ router.post('/logout', async (req, res) => {
   } catch (error) {
     res.status(400).send({ message: 'Logout failed', error: error.message });
   }
+});
+
+router.get('/username/:name', async (req, res) => {
+  const { name } = req.params;
+  const member = await getMemberByName(name);
+  if (member.length > 0) {
+    return res.status(403).send({ message: 'Username already exists' });
+  }
+  res.status(200).send({ message: 'Username is available' });
 });
 
 export default router;
