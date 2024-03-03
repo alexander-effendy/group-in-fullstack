@@ -14,6 +14,8 @@ import Image from 'next/image';
 import Logo from '../../../assets/Vector.png';
 import Illustration from '../../../assets/Illustration.png';
 
+import { axiosInstanceWithAuth } from '../../../api/Axios';
+
 export default function Register() {
   const router = useRouter();
   const [username, setUsername] = useState('');
@@ -24,6 +26,13 @@ export default function Register() {
   
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+    try {
+      const res = await axiosInstanceWithAuth.get(`username/${username}`);
+    } catch (error) {
+      alert('Username already exists!');
+      return;
+    }
+    
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
