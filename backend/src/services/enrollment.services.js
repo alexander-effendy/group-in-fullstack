@@ -1,4 +1,4 @@
-import { dbEnrollMemberInCourse, getEnrollmentById } from "../models/enrollment.models.js";
+import { dbEnrollMemberInCourse, getEnrollmentById, dbUnenrollMemberFromCourse } from "../models/enrollment.models.js";
 
 export async function enrollMember(courseId, memberId) {
   try {
@@ -15,5 +15,14 @@ export async function fetchEnrollmentById(enrollmentId) {
     return { enrollment };
   } catch (error) {
     throw new Error("Failed to fetch enrollment by ID");
+  }
+}
+
+export async function unenrollMember(courseId, memberId) {
+  try {
+    const result = await dbUnenrollMemberFromCourse(courseId, memberId);
+    return { message: "Member unenrolled from course successfully" };
+  } catch (error) {
+    throw new Error("Failed to unenroll member from course");
   }
 }
