@@ -17,7 +17,7 @@ const exampleData = [
   },
 ];
 
-const page = (): JSX.Element => {
+const Page = (): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
   const handleAddCourse = () => {
     setModalVisible(true);
@@ -71,4 +71,4 @@ const page = (): JSX.Element => {
   );
 };
 
-export default page;
+export default Page;
