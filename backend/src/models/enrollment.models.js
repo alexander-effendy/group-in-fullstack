@@ -31,3 +31,17 @@ export async function dbEnrollMemberInCourse(courseId, memberId) {
     }
   }
   
+export async function dbGetCoursesByMemberId(memberId) {
+  try {
+    const query = `
+      SELECT * FROM courses
+      WHERE course_id IN (
+        SELECT course_id FROM enrollment WHERE member_id = ?
+      )`;
+    const result = await queryDatabase(query, memberId);
+    return result;
+  } catch (error) {
+    console.error("Error fetching courses by member ID:", error);
+    throw new Error(error.message);
+  }
+}
