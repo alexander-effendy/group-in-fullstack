@@ -32,7 +32,8 @@ const ReviewCard: FC<ReviewCardProps> = ({ id }) : JSX.Element => {
       setLoading(false);
     };
     
-    setInterval(fetchData, 100);
+    fetchData()
+    // setInterval(fetchData, 100);
   }, [])
 
   return (
