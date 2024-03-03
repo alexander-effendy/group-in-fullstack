@@ -5,6 +5,7 @@ import auth from "./src/routes/auth.routes.js";
 import members from "./src/routes/members.routes.js";
 import reviews from "./src/routes/reviews.routes.js";
 import groupPosts from "./src/routes/group_posts.routes.js";
+import groupRequests from "./src/routes/group_requests.routes.js";
 import groups from "./src/routes/groups.routes.js";
 import courses from "./src/routes/courses.routes.js";
 import reactions from "./src/routes/reactions.routes.js";
@@ -26,10 +27,9 @@ app.use("/reviews", authMiddleware, reviews);
 app.use("/group_posts", authMiddleware, groupPosts);
 app.use("/groups", authMiddleware, groups);
 app.use("/courses", authMiddleware, courses);
+app.use("/group_requests", authMiddleware, groupRequests);
 app.use("/reactions", authMiddleware, reactions);
 app.use("/enrollment", authMiddleware, enrollment);
-
-
 app.use(express.static("public"));
 
 // Make the application listen on the specified port
