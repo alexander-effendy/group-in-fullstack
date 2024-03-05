@@ -21,7 +21,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
-  
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (password !== confirmPassword) {

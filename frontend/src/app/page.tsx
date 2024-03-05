@@ -11,17 +11,7 @@ import { useRouter } from 'next/navigation';
 import Vector1 from '@/assets/Vector-1.png';
 import Vector2 from '@/assets/Vector-2.png';
 import Image from 'next/image';
-
-const coursesEnrolled = [
-  {
-    courseId: 'COMP6080',
-    courseName: 'Frontend',
-  },
-  {
-    courseId: 'COMP1511',
-    courseName: 'Backend',
-  },
-];
+import { coursesEnrolled } from '@/data/courses';
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
